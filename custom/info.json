@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "Goofables",
+    "SHORT" : "Custom things",
+    "DESCRIPTION" : "Custom commands that I wanted to make. Incldes Welcome, say, alert, and private channels.",
+    "DISABLED" : false,
+    "NAME" : "Custom",
+}
