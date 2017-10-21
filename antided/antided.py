@@ -10,8 +10,8 @@ class Antided:
     
     def __init__(self, bot):
         self.bot = bot
-        self.settings = dataIO.load_json("data/Antided/settings.json", "load")
-        self.channels = dataIO.load_json("data/Antided/channels.json", "load")
+        self.settings = dataIO.load_json("data/Antided/settings.json")
+        self.channels = dataIO.load_json("data/Antided/channels.json")
         
     @commands.command(pass_context=True)
     @checks.admin_or_permissions(manage_server=True)
