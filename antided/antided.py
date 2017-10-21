@@ -18,7 +18,7 @@ class Antided:
     async def dednuker(self, ctx):
         """Finds all `ded` messages"""
         if ctx.invoked_subcommand is None:
-            await ctx.invoke(self.channel_dednuker, ctx.message.channel, False)
+            await ctx.invoke(self.channel_dednuker, False, ctx.message.channel)
 
     @dednuker.command(name="channel", pass_context=True)
     @checks.mod_or_permissions(manage_messages=True)
