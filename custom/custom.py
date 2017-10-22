@@ -60,7 +60,8 @@ class Custom:
 	@checks.serverowner_or_permissions(manage_server=True)
 	async def pvt(self, ctx, user: discord.Member, user2: discord.User=None):
 		"""Creates a private channel"""
-		if user2 is None or not ctx.message.author.server_permissions.administrator: user2 = ctx.message.author
+		if user2 is None or not ctx.message.author.server_permissions.administrator:
+			user2 = ctx.message.author
 		server = ctx.message.server
 		await self.bot.delete_message(ctx.message)
 		try:
@@ -89,7 +90,7 @@ class Custom:
 			await self.bot.say("Error")
 
 	async def member_join(self, member):
-		"""member Join method"""
+		"""Member Join listener"""
 		server = member.server
 		print("<> Member '{}' joined server '{}'. {}".format(member.name, server.name, server.member_count))
 		for channel in self.channels:
@@ -100,7 +101,7 @@ class Custom:
 				pass
 	   
 	async def member_remove(self, member):
-		"""member Join method"""
+		"""Member remove listener"""
 		server = member.server
 		print("<> Member '{}' left server '{}'. {}".format(member.name, server.name, server.member_count))
 		for channel in self.channels:
@@ -112,28 +113,18 @@ class Custom:
 			
 	@commands.command(pass_context=True, no_pm=True)
 	@checks.is_owner()
-	async def j(self, ctx, member: discord.User):
-		"""member Join method"""
+	async def j(self, ctx, member: discord.Member):
+		"""Force member Join message"""
 		ctx = member
 		self.bot.dispatch("member_join", ctx)
 		self.bot.dispatch("member_remove", ctx)
-		"""
-		server = member.server
-		print("<> Member '{}' joined server '{}'. {}".format(member.name, server.name, server.member_count))
-		print("<> Member '{}' left server '{}'. {}".format(member.name, server.name, server.member_count))
-		for channel in self.channels:
-			try:
-				if self.channels[channel] and server.get_channel(channel).server == server:
-					await self.bot.send_message(server.get_channel(channel), ":small_red_triangle: Welcome {0} (#{2})".format(member.mention, server, server.member_count))
-				if self.channels[channel] and server.get_channel(channel).server == server:
-					await self.bot.send_message(server.get_channel(channel), ":small_red_triangle_down: Goodbye {0} (#{2})".format(member, server, server.member_count))
-			except AttributeError:
-				pass"""
 
-	@commands.command(pass_context=True, no_pm=True)
-	@checks.is_owner()
+	@commands.group(pass_context=True, no_pm=True)
+	@checks.admin_or_permissions(manage_server=True)
 	async def welcome(self, ctx, chan: discord.Channel=None):
 		"""Toggles welcome messages for channel"""
+		if ctx.invoked_subcommand is not None:
+			return
 		channel = ctx.message.channel
 		if not chan == None:
 			channel = chan
@@ -150,9 +141,8 @@ class Custom:
 		self.save_channels()
 		self.channels = fileIO("data/custom/channels.json", "load")
 		
-	@commands.command(pass_context=True, no_pm=True)
-	@checks.is_owner()
-	async def welcomeList(self, ctx):
+	@welcome.command(name="list")
+	async def list_welcome(self, ctx):
 		server = ctx.message.server
 		message = "Welcome channels:"
 		for channel in self.channels:
