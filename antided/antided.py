@@ -35,7 +35,7 @@ class Antided:
             total["messages"] += 1
             if user and not message.author == user:
                 continue
-            if self.regex.match(message.content.lower()):
+            if self.regex.match(message.content.lower()) and len(message.content) < 20:
                 total["msg"] += 1
                 msg += self.fmt(message)
                 await self.bot.add_reaction(message, "👎")
@@ -46,7 +46,10 @@ class Antided:
                         pass
         msg += "```"
         if not msg == "``````":
-            await self.bot.send_message(ctx.message.channel, "Channel: {} Messages: `{}`\n{}".format(channel.mention, total["msg"], msg))
+            msg = "Channel: {} Messages: `{}`\n{}".format(channel.mention, inCh, msg)
+            if len(msg) > 2000:
+                await self.bot.send_message(stx.message.channel, "Error too long!")
+            await self.bot.send_message(ctx.message.channel, msg)
         msg = "Done!"
         msg += "\nScanned `{}` messages in this channels.".format(total["messages"])
         msg += "\nFound `{}` matches.".format(total["msg"])
@@ -67,7 +70,7 @@ class Antided:
                     total["messages"] += 1
                     if user and not message.author == user:
                         continue
-                    if self.regex.match(message.content.lower()):
+                    if self.regex.match(message.content.lower()) and len(message.content) < 20:
                         total["msg"] += 1
                         inCh += 1
                         msg += self.fmt(message)
@@ -82,7 +85,10 @@ class Antided:
             msg += "```"
             if not msg == "``````":
                 total["ch"] += 1
-                await self.bot.send_message(ctx.message.channel, "Channel: {} Messages: `{}`\n{}".format(channel.mention, inCh, msg))
+                    msg = "Channel: {} Messages: `{}`\n{}".format(channel.mention, inCh, msg)
+                    if len(msg) > 2000:
+                        await self.bot.send_message(stx.message.channel, "Error too long!")
+                    await self.bot.send_message(ctx.message.channel, msg)
         msg = "Done!"
         msg += "\nScanned `{}` messages in `{}` channels in this servers.".format(total["messages"], total["channels"])
         msg += "\nFound `{}` matches in `{}` channels.".format(total["msg"], total["ch"])
@@ -105,7 +111,7 @@ class Antided:
                         total["messages"] += 1
                         if user and not message.author == user:
                             continue
-                        if self.regex.match(message.content.lower()):
+                        if self.regex.match(message.content.lower()) and len(message.content) < 20:
                             total["msg"] += 1
                             inCh += 1
                             msg += self.fmt(message)
