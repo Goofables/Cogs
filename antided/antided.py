@@ -11,7 +11,7 @@ class Antided:
     """Deletes all `ded` messages."""
     def __init__(self, bot):
         self.bot = bot
-        self.regex = re.compile("^([\W_\d]*d[\W_\d]*e[\W_\d]*d[\W_\d]*)+$")
+        self.regex = re.compile("(^| )([\W_\d]*d[\W_\d]*e[\W_\d]*d[\W_\d]*)+($| )")
 
     @commands.group(pass_context=True)
     @checks.mod_or_permissions(manage_messages=True)
