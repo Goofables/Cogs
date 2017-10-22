@@ -133,7 +133,7 @@ class Custom:
 				pass
 		await self.bot.say(message)
 		
-	@welcome.command(name="toggle")
+	@welcome.command(name="toggle", pass_context=True, no_pm=True)
 	async def toggle_welcome(self, ctx, channel: discord.Channel=None):
 		"""Toggles welcome messages for channel"""
 		if ctx.invoked_subcommand is not None:
