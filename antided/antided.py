@@ -12,6 +12,9 @@ class Antided:
     def __init__(self, bot):
         self.bot = bot
         self.regex = re.compile(".*(^|[\W_\d]+)d[\W_\d]*e[\W_\d]*d([\W_\d]+|ing|ed|er|$)")
+    
+    def fmt(self.message:discord.Message):
+        return "\n{} #{} @{} >> \"{}\"".format(message.timestamp.strftime("%Y-%m-%d %H:%M:%S"), message.id, message.author, message.content)
 
     @commands.group(pass_context=True)
     @checks.mod_or_permissions(manage_messages=True)
@@ -34,7 +37,7 @@ class Antided:
                 continue
             if self.regex.match(message.content.lower()):
                 total["msg"] += 1
-                msg += "\n{} : {} >> {}".format(message.timestamp, message.id, message.author)
+                msg += self.fmt(message)
                 await self.bot.add_reaction(message, "👎")
                 if delete:
                     try:
@@ -67,7 +70,7 @@ class Antided:
                     if self.regex.match(message.content.lower()):
                         total["msg"] += 1
                         inCh += 1
-                        msg += "\n{} : {} >> {}".format(message.timestamp, message.id, message.author)
+                        msg += self.fmt(message)
                         await self.bot.add_reaction(message, "👎")
                         if delete:
                             try:
@@ -105,7 +108,7 @@ class Antided:
                         if self.regex.match(message.content.lower()):
                             total["msg"] += 1
                             inCh += 1
-                            msg += "\n{} : {} >> {}".format(message.timestamp, message.id, message.author)
+                            msg += self.fmt(message)
                             await self.bot.add_reaction(message, "👎")
                 except discord.Forbidden:
                     pass
