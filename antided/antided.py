@@ -48,7 +48,7 @@ class Antided:
                         pass
         msg += "```"
         if not msg == "``````":
-            msg = "Channel: {} Messages: `{}`\n{}".format(channel.mention, inCh, msg)
+            msg = "Channel: {} Messages: `{}`\n{}".format(channel.mention, total["msg"], msg)
             if len(msg) > 2000:
                 await self.bot.send_message(stx.message.channel, "Error too long!")
             await self.bot.send_message(ctx.message.channel, msg)
