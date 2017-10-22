@@ -17,6 +17,9 @@ class Custom:
     async def nuke(self, ctx):
         """Cleans all messages from a channel."""
         await self.bot.pin_message(ctx.message)
+		async for message in self.bot.logs_from(channel, limit=10,after=ctx.message.timestamp):
+			if message.author == ctx.message.server.me and message.content == '':
+				await self.bot.delete_message(message)
         channel = ctx.message.channel
         tmp = ctx.message
         n = 0
