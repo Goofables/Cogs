@@ -13,7 +13,7 @@ class Antided:
         self.bot = bot
         self.regex = re.compile(".*(^|[\W_\d]+)d[\W_\d]*e[\W_\d]*d([\W_\d]+|ing|ed|er|$)")
     
-    def fmt(self.message:discord.Message):
+    def fmt(self, message:discord.Message):
         return "\n{} #{} @{} >> \"{}\"".format(message.timestamp.strftime("%Y-%m-%d %H:%M:%S"), message.id, message.author, message.content)
 
     @commands.group(pass_context=True)
