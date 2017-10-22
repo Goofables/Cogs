@@ -142,7 +142,7 @@ class Antided:
 		"""Message listener"""
 		if message.author.bot:
 			return
-		if self.regex.match(message.content.lower()):
+		if self.regex.match(message.content.lower()) and len(message.content) < 15:
 			await self.bot.add_reaction(message, "👎")
 			"""overwrites = channel.overwrites_for(message.author)
 			overwrites.send_messages = False
