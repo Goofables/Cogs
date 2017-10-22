@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.enums import MessageType
 from cogs.utils.dataIO import fileIO
 from .utils import checks
 import asyncio
