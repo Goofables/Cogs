@@ -18,16 +18,16 @@ class Custom:
 		"""Cleans all messages from a channel."""
 		await self.bot.pin_message(ctx.message)
 		channel = ctx.message.channel
-		tmp = ctx.message
-		async for message in self.bot.logs_from(channel, limit=10,after=tmp):
+		async for message in self.bot.logs_from(channel, limit=10,after=ctx.message):
 			if message.author == ctx.message.server.me and message.content == '':
 				await self.bot.delete_message(message)
+		tmp = ctx.message
 		n = 0
 		async for message in self.bot.logs_from(channel, limit=10000000,before=tmp):
 			try:
-				if (not ctx.message.pinned):
+				if not ctx.message.pinned:
 					break
-				if (message.pinned):
+				if message.pinned:
 					continue
 				await self.bot.delete_message(message)
 				n += 1
