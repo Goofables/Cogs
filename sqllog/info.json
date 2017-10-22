@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "Goofables",
+    "SHORT" : "SQL logger",
+    "DESCRIPTION" : "Logs all messages to SQL server",
+    "DISABLED" : false,
+    "NAME" : "SQLlog",
+}
