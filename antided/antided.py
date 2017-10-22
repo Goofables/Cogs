@@ -85,10 +85,10 @@ class Antided:
             msg += "```"
             if not msg == "``````":
                 total["ch"] += 1
-                    msg = "Channel: {} Messages: `{}`\n{}".format(channel.mention, inCh, msg)
-                    if len(msg) > 2000:
-                        await self.bot.send_message(stx.message.channel, "Error too long!")
-                    await self.bot.send_message(ctx.message.channel, msg)
+                msg = "Channel: {} Messages: `{}`\n{}".format(channel.mention, inCh, msg)
+                if len(msg) > 2000:
+                    await self.bot.send_message(stx.message.channel, "Error too long!")
+                await self.bot.send_message(ctx.message.channel, msg)
         msg = "Done!"
         msg += "\nScanned `{}` messages in `{}` channels in this servers.".format(total["messages"], total["channels"])
         msg += "\nFound `{}` matches in `{}` channels.".format(total["msg"], total["ch"])
