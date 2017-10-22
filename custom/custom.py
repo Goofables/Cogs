@@ -123,6 +123,8 @@ class Custom:
 	@checks.admin_or_permissions(manage_server=True)
 	async def welcome(self, ctx):
 		"""Manage channels for welcome messages"""
+		if ctx.invoked_subcommand is not None:
+			return
 		server = ctx.message.server
 		message = "Welcome channels:"
 		for channel in self.channels:
@@ -136,8 +138,6 @@ class Custom:
 	@welcome.command(name="toggle", pass_context=True, no_pm=True)
 	async def toggle_welcome(self, ctx, channel: discord.Channel=None):
 		"""Toggles welcome messages for channel"""
-		if ctx.invoked_subcommand is not None:
-			return
 		if channel == None:
 			channel = ctx.message.channel
 		await self.bot.delete_message(ctx.message)
