@@ -121,13 +121,25 @@ class Custom:
 
 	@commands.group(pass_context=True, no_pm=True)
 	@checks.admin_or_permissions(manage_server=True)
-	async def welcome(self, ctx, chan: discord.Channel=None):
+	async def welcome(self, ctx):
+		"""Manage channels for welcome messages"""
+		server = ctx.message.server
+		message = "Welcome channels:"
+		for channel in self.channels:
+			try:
+				if server.get_channel(channel).server == server:
+					message += "\n{} : {}".format(server.get_channel(channel).mention, self.channels[channel])
+			except AttributeError:
+				pass
+		await self.bot.say(message)
+		
+	@welcome.command(name="toggle")
+	async def toggle_welcome(self, ctx, channel: discord.Channel=None):
 		"""Toggles welcome messages for channel"""
 		if ctx.invoked_subcommand is not None:
 			return
-		channel = ctx.message.channel
-		if not chan == None:
-			channel = chan
+		if channel == None:
+			channel = ctx.message.channel
 		await self.bot.delete_message(ctx.message)
 		if channel.id not in self.channels:
 			self.channels[channel.id] = True
@@ -140,18 +152,6 @@ class Custom:
 			del self.channels[channel.id]
 		self.save_channels()
 		self.channels = fileIO("data/custom/channels.json", "load")
-		
-	@welcome.command(name="list")
-	async def list_welcome(self, ctx):
-		server = ctx.message.server
-		message = "Welcome channels:"
-		for channel in self.channels:
-			try:
-				if server.get_channel(channel).server == server:
-					message += "\n{} : {}".format(server.get_channel(channel).mention, self.channels[channel])
-			except AttributeError:
-				pass
-		await self.bot.say(message)
 
 	def save_channels(self):
 		fileIO('data/custom/channels.json', 'save', self.channels)
