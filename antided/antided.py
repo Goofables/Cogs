@@ -38,6 +38,8 @@ class Antided:
             if self.regex.match(message.content.lower()) and len(message.content) < 20:
                 total["msg"] += 1
                 msg += self.fmt(message)
+                if message.pinned:
+                    continue
                 await self.bot.add_reaction(message, "👎")
                 if delete:
                     try:
@@ -74,6 +76,8 @@ class Antided:
                         total["msg"] += 1
                         inCh += 1
                         msg += self.fmt(message)
+                        if message.pinned:
+                            continue
                         await self.bot.add_reaction(message, "👎")
                         if delete:
                             try:
@@ -115,6 +119,8 @@ class Antided:
                             total["msg"] += 1
                             inCh += 1
                             msg += self.fmt(message)
+                            if message.pinned:
+                                continue
                             await self.bot.add_reaction(message, "👎")
                 except discord.Forbidden:
                     pass
