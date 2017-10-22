@@ -19,7 +19,7 @@ class Custom:
 		await self.bot.pin_message(ctx.message)
 		channel = ctx.message.channel
 		async for message in self.bot.logs_from(channel, limit=10,after=ctx.message):
-			if message.author == ctx.message.server.me and message.content == '':
+			if message.author == ctx.message.server.me and message.type == MessageType.pins_add:
 				await self.bot.delete_message(message)
 		tmp = ctx.message
 		n = 0
