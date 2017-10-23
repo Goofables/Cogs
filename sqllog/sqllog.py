@@ -30,8 +30,5 @@ def fileCheck():
 def setup(bot):
 	fileCheck()
 	
-
-	
-	
 	bot.add_cog(SQLlog(bot))
 	
