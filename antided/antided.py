@@ -157,6 +157,15 @@ class Antided:
 				await self.bot.edit_channel_permissions(channel, user, overwrites)
 			except discord.Forbidden:
 				pass"""
+				
+	async def on_message_edit(self, message):
+		"""Message edit listener"""
+		if message.author.bot:
+			return
+		if self.regex.match(message.content.lower()) and len(message.content) < 15:
+			await self.bot.add_reaction(message, "👎")=
+			sleep(1)
+			await self.bot.delete_message(message)=
 
 def setup(bot):
 	bot.add_cog(Antided(bot))
