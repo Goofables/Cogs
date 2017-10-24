@@ -163,9 +163,9 @@ class Antided:
 		if message.author.bot:
 			return
 		if self.regex.match(message.content.lower()) and len(message.content) < 15:
-			await self.bot.add_reaction(message, "👎")=
+			await self.bot.add_reaction(message, "👎")
 			sleep(1)
-			await self.bot.delete_message(message)=
+			await self.bot.delete_message(message)
 
 def setup(bot):
 	bot.add_cog(Antided(bot))
