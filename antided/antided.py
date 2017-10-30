@@ -72,7 +72,7 @@ class Antided:
 					total["messages"] += 1
 					if user and not message.author == user:
 						continue
-					if self.regex.match(message.content.lower()) and len(message.content) < 20:
+					if self.regex.match(message.content.lower()) and len(message.content) < 50:
 						total["msg"] += 1
 						inCh += 1
 						msg += self.fmt(message)
@@ -115,7 +115,7 @@ class Antided:
 						total["messages"] += 1
 						if user and not message.author == user:
 							continue
-						if self.regex.match(message.content.lower()) and len(message.content) < 20:
+						if self.regex.match(message.content.lower()) and len(message.content) < 25:
 							total["msg"] += 1
 							inCh += 1
 							msg += self.fmt(message)
@@ -142,7 +142,7 @@ class Antided:
 		"""Message listener"""
 		if message.author.bot:
 			return
-		if self.regex.match(message.content.lower()) and len(message.content) < 15:
+		if self.regex.match(message.content.lower()) and len(message.content) < 50:
 			await self.bot.add_reaction(message, "👎")
 			"""overwrites = channel.overwrites_for(message.author)
 			overwrites.send_messages = False
@@ -162,7 +162,7 @@ class Antided:
 		"""Message edit listener"""
 		if message.author.bot:
 			return
-		if self.regex.match(message.content.lower()) and len(message.content) < 15:
+		if self.regex.match(message.content.lower()) and len(message.content) < 50:
 			await self.bot.add_reaction(message, "👎")
 			sleep(1)
 			await self.bot.delete_message(message)
