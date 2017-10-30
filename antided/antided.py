@@ -11,7 +11,7 @@ class Antided:
 	"""Deletes all `ded` messages."""
 	def __init__(self, bot):
 		self.bot = bot
-		self.regex = re.compile("((.*(^|[\W_\d]+)[d]+[\W_\d]*[(e|3)]+[\W_\d]*[d]+([\W_\d]+|ing|ed|er|$))|^d+e+a*d+$)")
+		self.regex = re.compile("((.*(^|[\W_\d]+)[d]+[\W_\d]*[(e|3)]+[\W_\d]*[d]+([\W_\d]+|ing|ed|er|$))|^d+e+a*e*d+$)")
 	
 	def fmt(self, message:discord.Message):
 		return "\n{} #{} @{} >> \"{}\"".format(message.timestamp.strftime("%Y-%m-%d %H:%M:%S"), message.id, message.author, message.content)
