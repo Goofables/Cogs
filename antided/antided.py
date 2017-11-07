@@ -158,7 +158,7 @@ class Antided:
 			except discord.Forbidden:
 				pass"""
 				
-	async def on_message_edit(self, message):
+	async def on_message_edit(self, old_msg, message):
 		"""Message edit listener"""
 		if message.author.bot:
 			return
