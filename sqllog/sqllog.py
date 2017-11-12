@@ -39,12 +39,12 @@ class SQLlog:
 				makedb = """CREATE TABLE `discordlog`.`{}` (
 					`id` BIGINT(18) NOT NULL ,
 					`author.id` BIGINT(18) NOT NULL ,
-					`author.name` TINYTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-					`content` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+					`author.name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
+					`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8_unicode_ci NOT NULL ,
 					`timestamp` TIMESTAMP NOT NULL ,
-					`type` TINYTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-					`attachments` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-					`embeds` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
+					`type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
+					`attachments` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
+					`embeds` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
 					PRIMARY KEY (`id`)) ENGINE = MyISAM;""".format(message.channel.id)
 				cursor.execute(makedb)
 				if cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
