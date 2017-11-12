@@ -25,7 +25,7 @@ class SQLlog:
 					message.content.replace("\\","\\\\").replace("'","\\'"),
 					str(message.attachments).replace("\\","\\\\").replace("'","\\'"),
 					str(message.embeds).replace("\\","\\\\").replace("'","\\'"),
-					)
+					).encode('utf-8')
 		try:
 			cursor.execute(query)
 		except UnicodeEncodeError:
@@ -100,7 +100,9 @@ def setup(bot):
 		db = pymysql.connect(login["host"], login["user"], login["pass"], login["db"])
 		global cursor
 		cursor = db.cursor()
-		
+		cursor.execute('SET NAMES utf8mb4;')
+		cursor.execute('SET CHARACTER SET utf8mb4;')
+		cursor.execute('SET character_set_connection=utf8mb4;')
 		cursor.execute("SELECT VERSION()")
 		data = cursor.fetchone()
 		
