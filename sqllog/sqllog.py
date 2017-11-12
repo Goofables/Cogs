@@ -40,7 +40,7 @@ class SQLlog:
 					`id` BIGINT(18) NOT NULL ,
 					`author.id` BIGINT(18) NOT NULL ,
 					`author.name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
-					`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8_unicode_ci NOT NULL ,
+					`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
 					`timestamp` TIMESTAMP NOT NULL ,
 					`type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
 					`attachments` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
