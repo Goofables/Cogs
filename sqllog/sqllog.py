@@ -19,6 +19,9 @@ class SQLlog:
 		await self.log_message(message)
 		
 	async def log_message(self, message):
+		if "_console" in message.channel.name:
+			if message.author.bot:
+				return
 		query = """INSERT INTO `{0.channel.id}` (
 		`id`, `author.id`, `author.name`, `content`, `timestamp`, `type`, `attachments`, `embeds`
 		) VALUES (
