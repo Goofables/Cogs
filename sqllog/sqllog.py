@@ -13,8 +13,10 @@ class SQLlog:
 	
 	async def on_message(self, message):
 		"""Message listener"""
-		if "_console" not in message.channel.name:
-			await self.log_message(message)
+		if "_console" in message.channel.name:
+			if message.author.bot:
+				return
+		await self.log_message(message)
 		
 	async def log_message(self, message):
 		query = """INSERT INTO `{0.channel.id}` (
