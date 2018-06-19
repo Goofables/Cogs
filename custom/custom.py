@@ -20,6 +20,7 @@ class Custom:
 		"""Cleans all messages from a channel."""
 		await self.bot.pin_message(ctx.message)
 		channel = ctx.message.channel
+		content = ctx.message.content
 		async for message in self.bot.logs_from(channel, limit=10,after=ctx.message):
 			if message.type == MessageType.pins_add:
 				try:
@@ -30,7 +31,7 @@ class Custom:
 		n = 0
 		async for message in self.bot.logs_from(channel, limit=10000000,before=tmp):
 			try:
-				if not all(ctx.message.content == "!nuke" and ctx.message.pinned):
+				if not all(ctx.message.content == content and ctx.message.pinned):
 					print("Nuke aborted in channel {}".format(ctx.message.channel))
 					break
 				if message.pinned:
