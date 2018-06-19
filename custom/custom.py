@@ -68,7 +68,7 @@ class Custom:
 					continue
 			deleteList.append(message)
 			n += 1
-			if n%1000 == 0;
+			if n%1000 == 0:
 				await self.bot.edit_message(question, "Scanning channel messages for speednuke. Scanned: `{}`".format(n))
 				
 		per = len(deleteList)//10
