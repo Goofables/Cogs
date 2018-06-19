@@ -21,7 +21,7 @@ class Custom:
 		await self.bot.pin_message(ctx.message)
 		channel = ctx.message.channel
 		content = ctx.message.content
-		async for message in self.bot.logs_from(channel, limit=10,after=ctx.message):
+		async for message in self.bot.logs_from(channel, limit=10, after=ctx.message):
 			if message.type == MessageType.pins_add:
 				try:
 					await self.bot.delete_message(message)
@@ -29,7 +29,7 @@ class Custom:
 					pass
 		tmp = ctx.message
 		n = 0
-		async for message in self.bot.logs_from(channel, limit=10000000,before=tmp):
+		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
 			try:
 				if not all(ctx.message.content == content and ctx.message.pinned):
 					print("Nuke aborted in channel {}".format(ctx.message.channel))
