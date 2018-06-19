@@ -30,7 +30,7 @@ class Custom:
 		nIO = psutil.net_io_counters(pernic=True)
 		
 		footer = "Status"
-		colour = discord.Colour(((256*(pCPU/100.0))<<16) + ((256*(mem.percent/100.0))<<8))
+		colour = discord.Colour((int(256*(pCPU/100.0))<<16) + (int(256*(mem.percent/100.0))<<8))
 		title = "Sustem status:"
 		information = """	CPU: `{}%`
 							Memory: `{}%`""".format(pCPU, mem.percent)
