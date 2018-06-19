@@ -105,7 +105,10 @@ class Custom:
 		if messages == None:
 			return
 		for message in messages:
-			await self.bot.delete_message(message)
+			try:
+				await self.bot.delete_message(message)
+			except:
+				pass
 		messages = None
 
 	@commands.command(pass_context=True)
