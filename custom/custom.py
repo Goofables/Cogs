@@ -56,8 +56,8 @@ class Custom:
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		await self.bot.delete_message(response)
 		await self.bot.edit_message(question, "Scanning channel messages for speednuke")
+		await self.bot.delete_message(response)
 		n = 0
 		delete = []
 		
@@ -68,7 +68,7 @@ class Custom:
 			delete.append(message)
 			n += 1
 		
-		async for message in delete:
+		for message in delete:
 			asyncio.ensure_future(self.bot.delete_message(message))
 		
 		await self.bot.say("Scanned channel `{}` messages".format(n))
