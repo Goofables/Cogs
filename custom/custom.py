@@ -58,7 +58,7 @@ class Custom:
 			Use: `{}%`
 			Idle: `{}%`
 			Cores: `{}`
-		**Memory:**
+	**Memory:**
 			Use: `{}%`
 			Total: `{}`
 			Used: `{}`
