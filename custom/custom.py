@@ -81,10 +81,11 @@ class Custom:
 		per = len(deleteList)//10
 		for i in range(10):
 			asyncio.ensure_future(self.delete(deleteList[i*per:(i+1)*per]))
-				
-		await self.bot.say("Scanned channel `{}` messages".format(n))
+			
+		await self.bot.edit_message(question, "Async 10 thread speednuke started! `{}` messages in nuke queue.".format(n))
+		
+		print("10 threaded delete requested for {} messages from {}".format(n, ctx.message.channel))
 		await self.bot.delete_message(ctx.message)
-		print("10 threaded delete requested for {} messages from {}".format(n,channel))
 	
 	
 	@commands.command(pass_context=True, no_pm=True)
