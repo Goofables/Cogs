@@ -119,7 +119,7 @@ def setup(bot):
 		data = cursor.fetchone()
 		
 		print("MySQL Version: {}".format(data))
-	except TypeError:
+	except:
 		print ("Error! Could not login")
 		if db:
 			db.close()
