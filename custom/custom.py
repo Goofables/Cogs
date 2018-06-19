@@ -57,8 +57,7 @@ class Custom:
 	@checks.admin_or_permissions(manage_server=True)
 	async def speednuke(self, ctx):
 		"""Cleans all messages from a channel."""
-		question = await self.bot.say("Are you sure you want to speednuke this channel"
-						   " Type `yes` to confirm.")
+		question = await self.bot.say("Are you sure you want to speednuke this channel. Type `yes` to confirm.")
 		response = await self.bot.wait_for_message(author=ctx.message.author)
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
