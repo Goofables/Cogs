@@ -41,8 +41,8 @@ class Custom:
 	async def status(self, ctx, interval = 3):
 		"""Get memory and processing status"""
 		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2))
-		pCPU = psutil.cpu_percent(interval=interval)
-		tpCPU = psutil.cpu_times_percent(interval=interval)
+		pCPU = await psutil.cpu_percent(interval=interval)
+		tpCPU = await psutil.cpu_times_percent(interval=interval)
 		tCPU = psutil.cpu_times()
 		nCPU = psutil.cpu_count()
 		cpuFreq = psutil.cpu_freq()
@@ -52,13 +52,13 @@ class Custom:
 		
 		footer = "Status"
 		colour = discord.Colour((int(256*(pCPU/100.0))<<16) + (int(256*(mem.percent/100.0))<<8))
-		title = "Sustem status:"
+		title = "System status:"
 		information = """
 		**CPU:**
 			Use: `{}%`
 			Idle: `{}%`
 			Cores: `{}`
-	**Memory:**
+**Memory:**
 			Use: `{}%`
 			Total: `{}`
 			Used: `{}`
