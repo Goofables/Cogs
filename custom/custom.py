@@ -47,6 +47,12 @@ class Custom:
 		await self.bot.delete_message(ctx.message)
 		print("Deleted {} messages from {}".format(n,channel))
 	
+	async def delete(self, messages):
+		if messages == None:
+			return
+		for message in messages:
+			await self.bot.delete_message(message)
+
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
 	async def speednuke(self, ctx):
@@ -71,6 +77,7 @@ class Custom:
 			if n%1000 == 0:
 				await self.bot.edit_message(question, "Scanning channel messages for speednuke. Scanned: `{}`".format(n))
 				
+		await self.bot.edit_message(question, "Channel scanned. `{}` messages in nuke queue. Starting async nuke".format(n))
 		per = len(deleteList)//10
 		for i in range(10):
 			asyncio.ensure_future(delete(deleteList[i*per:(i+1)*per]))
@@ -79,11 +86,6 @@ class Custom:
 		await self.bot.delete_message(ctx.message)
 		print("10 threaded delete requested for {} messages from {}".format(n,channel))
 	
-	async def delete(self, messages):
-		if messages == None:
-			return
-		for message in messages:
-			await self.bot.delete_message(message)
 	
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
