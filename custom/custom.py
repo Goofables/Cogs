@@ -8,6 +8,7 @@ import asyncio
 import re
 import os
 
+
 class Custom:
 	"""Adds  usefull custom crap"""
 	def __init__(self, bot):
@@ -67,14 +68,19 @@ class Custom:
 					continue
 			delete.append(message)
 			n += 1
-		
-		for message in delete:
-			asyncio.ensure_future(self.bot.delete_message(message))
-		
+		if n > 10:
+			per = n/10
+			for i in range(9):
+				asyncio.ensure_future(delete[i*per:(i+1)*per])
+				
 		await self.bot.say("Scanned channel `{}` messages".format(n))
 		await self.bot.delete_message(ctx.message)
 		print("Delete requested for {} messages from {}".format(n,channel))
-			
+	
+	async def delete(self, messages):
+		for message in messages:
+			await self.bot.delete_message(message)
+	
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
 		"""Says things"""
