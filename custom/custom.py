@@ -48,14 +48,10 @@ class Custom:
 		print("Deleted {} messages from {}".format(n,channel))
 	
 	async def delete(self, id, messages):
-		print("Aync thread {} started".format(id))
 		if messages == None:
-			print("Aync thread {} stopped".format(id))
 			return
 		for message in messages:
 			await self.bot.delete_message(message)
-			print("Aync thread {} delete one".format(id))
-		print("Aync thread {} completed".format(id))
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
