@@ -83,7 +83,7 @@ class Custom:
 				
 		await self.bot.edit_message(question, "Channel scanned. `{}` messages in nuke queue. Starting async nuke".format(n))
 		
-		length = len(deleteList)//10
+		length = len(deleteList)
 		c = 0
 		for i in range(10):
 			c += len(deleteList[i*length // 10: (i+1)*length // 10])
