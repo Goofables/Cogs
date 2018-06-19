@@ -48,7 +48,7 @@ class SQLlog:
 		except pymysql.err.ProgrammingError as pe:
 			if not cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
 				print("Table `{0.id}` ({0.name}) does not exist! Creating now...".format(message.channel))
-				makedb = """CREATE TABLE `discordlog`.`{}` (
+				makedb = """CREATE TABLE `{}`.`{}` (
 					`id` BIGINT(18) NOT NULL ,
 					`author.id` BIGINT(18) NOT NULL ,
 					`author.name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
@@ -57,7 +57,7 @@ class SQLlog:
 					`type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
 					`attachments` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
 					`embeds` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
-					PRIMARY KEY (`id`)) ENGINE = MyISAM;""".format(message.channel.id)
+					PRIMARY KEY (`id`)) ENGINE = MyISAM;""".format(login["db"], message.channel.id)
 				cursor.execute(makedb)
 				if cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
 					print("Success! Table `{0.id}` ({0.name}) created!".format(message.channel))
