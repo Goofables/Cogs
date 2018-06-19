@@ -71,10 +71,11 @@ class Custom:
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
-	async def nuke(self, ctx):
+	async def nuke(self, ctx, channel: discord.Channel = None):
 		"""Cleans all messages from a channel."""
 		await self.bot.pin_message(ctx.message)
-		channel = ctx.message.channel
+		if channel == None:
+			channel = ctx.message.channel
 		content = ctx.message.content
 		async for message in self.bot.logs_from(channel, limit=10, after=ctx.message):
 			if message.type == MessageType.pins_add:
@@ -84,22 +85,28 @@ class Custom:
 					pass
 		tmp = ctx.message
 		n = 0
+		status = await self.bot.say("Nuking channel {}".format(channel.mention))
+		print("Nuking channel {}".format(channel.name))
 		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
 			try:
 				if not (ctx.message.content == content and ctx.message.pinned):
 					print("Nuke aborted in channel {}".format(ctx.message.channel))
+					await self.bot.edit_message(status, "Nuking aborted in channel {} Deleted: `{}` messages".format(channel.mention, n))
 					break
 				if message.pinned:
 					if not message.content.lower() == "!nuke":
 						continue
 				await self.bot.delete_message(message)
 				n += 1
+				if n%100 == 0:
+					await self.bot.edit_message(status, "Nuking channel {} Deleted: `{}` messages".format(channel.mention, n))
 			except Exception as e:
 				print(e)
 				pass
 			#tmp = message
+		await self.bot.edit_message(status, "Done nuking {} Deleted: `{}` messages".format(channel.mention, n))
 		await self.bot.delete_message(ctx.message)
-		print("Deleted {} messages from {}".format(n,channel))
+		print("Nuked {} messages from {}".format(n,channel))
 	
 	async def delete(self, id, messages):
 		if messages == None:
