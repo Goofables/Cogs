@@ -75,12 +75,12 @@ class SQLlog:
 	@checks.is_owner()
 	async def logall(self, ctx):
 		await self.bot.say("Are you sure you want to log all messages to sql server?"
-						   " Type yes to confirm.")
+						   " Type `yes` to confirm.")
 		response = await self.bot.wait_for_message(author=ctx.message.author)
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		status = await self.say("Logging all messages in all channels")
+		status = await self.bot,.say("Logging all messages in all channels")
 		total = {"messages" : 0, "channels" : 0, "servers" : 0}
 		for server in self.bot.servers:
 			total["servers"] += 1
