@@ -68,6 +68,9 @@ class Custom:
 					continue
 			delete.append(message)
 			n += 1
+			if n%1000 == 0;
+				await self.bot.edit_message(question, "Scanning channel messages for speednuke. Scanned: `{}`".format(n))
+				
 		per = len(delete)//10
 		for i in range(10):
 			asyncio.ensure_future(delete(delete[i*per:(i+1)*per]))
