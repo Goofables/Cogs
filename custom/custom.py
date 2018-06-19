@@ -36,7 +36,7 @@ class Custom:
 				n += 1
 			except:
 				pass
-			tmp = message
+			#tmp = message
 		await self.bot.delete_message(ctx.message)
 		print("Deleted {} messages from {}".format(n,channel))
 			
