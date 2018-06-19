@@ -31,6 +31,8 @@ class Custom:
 			u = "b"
 		if s > 10:
 			s = int(s)
+		else:
+			s = '%.3f'%s
 		return "{}{}".format(s, u)
 		
 	
@@ -56,7 +58,7 @@ class Custom:
 			Use: `{}%`
 			Idle: `{}%`
 			Cores: `{}`
-		***Memory:**
+		**Memory:**
 			Use: `{}%`
 			Total: `{}`
 			Used: `{}`
