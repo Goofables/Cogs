@@ -30,6 +30,7 @@ class Custom:
 		tmp = ctx.message
 		n = 0
 		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
+			print("Testing message: {}".format(message.content))
 			try:
 				if not all(ctx.message.content == content and ctx.message.pinned):
 					print("Nuke aborted in channel {}".format(ctx.message.channel))
