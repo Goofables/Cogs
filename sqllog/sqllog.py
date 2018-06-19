@@ -25,51 +25,54 @@ class SQLlog:
 		await self.log_message(message)
 		
 	async def log_message(self, message):
-		if "_console" in message.channel.name:
-			if message.author.bot:
-				return
-		query = """INSERT INTO `{0.channel.id}` (
-		`id`, `author.id`, `author.name`, `content`, `timestamp`, `type`, `attachments`, `embeds`
-		) VALUES (
-		'{0.id}', '{0.author.id}', '{1}', '{2}', '{0.timestamp}', '{0.type}', '{3}', '{4}'
-		)""".format(message,
-					message.author.name.replace("\\","\\\\").replace("'","\\'"),
-					message.content.replace("\\","\\\\").replace("'","\\'"),
-					str(message.attachments).replace("\\","\\\\").replace("'","\\'"),
-					str(message.embeds).replace("\\","\\\\").replace("'","\\'"),
-					).encode('utf-8')
 		try:
-			cursor.execute(query)
-		except UnicodeEncodeError:
-			print("Couldn't log message \"{}\"".format(message.content))
-			return
-		except pymysql.err.IntegrityError:
-			return
-		except pymysql.err.ProgrammingError as pe:
-			if not cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
-				print("Table `{0.id}` ({0.name}) does not exist! Creating now...".format(message.channel))
-				makedb = """CREATE TABLE `{}`.`{}` (
-					`id` BIGINT(18) NOT NULL ,
-					`author.id` BIGINT(18) NOT NULL ,
-					`author.name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
-					`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
-					`timestamp` TIMESTAMP NOT NULL ,
-					`type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
-					`attachments` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
-					`embeds` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
-					PRIMARY KEY (`id`)) ENGINE = MyISAM;""".format(login["db"], message.channel.id)
-				cursor.execute(makedb)
-				if cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
-					print("Success! Table `{0.id}` ({0.name}) created!".format(message.channel))
-					cursor.execute(query)
+			if "_console" in message.channel.name:
+				if message.author.bot:
+					return
+			query = """INSERT INTO `{0.channel.id}` (
+			`id`, `author.id`, `author.name`, `content`, `timestamp`, `type`, `attachments`, `embeds`
+			) VALUES (
+			'{0.id}', '{0.author.id}', '{1}', '{2}', '{0.timestamp}', '{0.type}', '{3}', '{4}'
+			)""".format(message,
+						message.author.name.replace("\\","\\\\").replace("'","\\'"),
+						message.content.replace("\\","\\\\").replace("'","\\'"),
+						str(message.attachments).replace("\\","\\\\").replace("'","\\'"),
+						str(message.embeds).replace("\\","\\\\").replace("'","\\'"),
+						).encode('utf-8')
+			try:
+				cursor.execute(query)
+			except UnicodeEncodeError:
+				print("Couldn't log message \"{}\"".format(message.content))
+				return
+			except pymysql.err.IntegrityError:
+				return
+			except pymysql.err.ProgrammingError as pe:
+				if not cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
+					print("Table `{0.id}` ({0.name}) does not exist! Creating now...".format(message.channel))
+					makedb = """CREATE TABLE `{}`.`{}` (
+						`id` BIGINT(18) NOT NULL ,
+						`author.id` BIGINT(18) NOT NULL ,
+						`author.name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
+						`content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
+						`timestamp` TIMESTAMP NOT NULL ,
+						`type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL ,
+						`attachments` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
+						`embeds` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL ,
+						PRIMARY KEY (`id`)) ENGINE = MyISAM;""".format(login["db"], message.channel.id)
+					cursor.execute(makedb)
+					if cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
+						print("Success! Table `{0.id}` ({0.name}) created!".format(message.channel))
+						cursor.execute(query)
+					else:
+						print("Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
+						await self.bot.send_message(discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner), "Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
 				else:
-					print("Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
-					await self.bot.send_message(discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner), "Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
-			else:
-				print("Error! Couldnt log message!")
-				print("`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
-				await self.bot.send_message(discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner), "`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
-				print("ProgrammingError ({0}): {1}".format(pe.strerror))
+					print("Error! Couldnt log message!")
+					print("`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
+					await self.bot.send_message(discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner), "`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
+					print("ProgrammingError ({0}): {1}".format(pe.strerror))
+		except discord.errors.NotFound:
+			pass
 
 	@commands.command(pass_context=True)
 	@checks.is_owner()
