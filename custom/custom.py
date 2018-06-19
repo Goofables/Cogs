@@ -47,11 +47,15 @@ class Custom:
 		await self.bot.delete_message(ctx.message)
 		print("Deleted {} messages from {}".format(n,channel))
 	
-	async def delete(self, messages):
+	async def delete(self, id, messages):
+		print("Aync thread {} started".format(id))
 		if messages == None:
+			print("Aync thread {} stopped".format(id))
 			return
 		for message in messages:
 			await self.bot.delete_message(message)
+			print("Aync thread {} delete one".format(id))
+		print("Aync thread {} completed".format(id))
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
@@ -80,7 +84,7 @@ class Custom:
 		await self.bot.edit_message(question, "Channel scanned. `{}` messages in nuke queue. Starting async nuke".format(n))
 		per = len(deleteList)//10
 		for i in range(10):
-			asyncio.ensure_future(self.delete(deleteList[i*per:(i+1)*per]))
+			asyncio.ensure_future(self.delete(i, deleteList[i*per:(i+1)*per]))
 			
 		await self.bot.edit_message(question, "Async 10 thread speednuke started! `{}` messages in nuke queue.".format(n))
 		
