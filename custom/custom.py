@@ -117,10 +117,9 @@ class Custom:
 			await self.bot.say("Exiting.")
 			return
 		await self.bot.edit_message(question, "Scanning channel messages for speednuke")
-		await self.bot.delete_message(response)
 		n = 0
 		deleteList = []
-		
+		deleteList.append(response)
 		async for message in self.bot.logs_from(ctx.message.channel, limit=10000000, before=ctx.message):
 			if message.pinned:
 				if not message.content.lower() == "!nuke":
