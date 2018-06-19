@@ -41,6 +41,7 @@ class Custom:
 	async def status(self, ctx, interval = 3):
 		"""Get memory and processing status"""
 		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2))
+		piCPU = await psutil.cpu_percent(interval=0)
 		pCPU = await psutil.cpu_percent(interval=interval)
 		tpCPU = await psutil.cpu_times_percent(interval=interval)
 		tCPU = psutil.cpu_times()
@@ -55,14 +56,14 @@ class Custom:
 		title = "System status:"
 		information = """
 		**CPU:**
-			Use: `{}%`
+			Use: `{}%` Instant: `{}%`
 			Idle: `{}%`
 			Cores: `{}`
 **Memory:**
 			Use: `{}%`
 			Total: `{}`
 			Used: `{}`
-			Open: `{}`""".format(pCPU, tpCPU.idle, nCPU, mem.percent, self.memform(mem.total), self.memform(mem.used), self.memform(mem.free))
+			Open: `{}`""".format(pCPU, piCPU, tpCPU.idle, nCPU, mem.percent, self.memform(mem.total), self.memform(mem.used), self.memform(mem.free))
 		e = discord.Embed(colour=colour, description=information)
 		e.set_author(name=title)
 		e.set_footer(text=footer)
