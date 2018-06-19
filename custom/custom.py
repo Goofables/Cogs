@@ -38,7 +38,8 @@ class Custom:
 						continue
 				await self.bot.delete_message(message)
 				n += 1
-			except:
+			except as e:
+				print(e)
 				pass
 			#tmp = message
 		await self.bot.delete_message(ctx.message)
