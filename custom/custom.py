@@ -56,8 +56,8 @@ class Custom:
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		await self.bot.delete_message(question)
 		await self.bot.delete_message(response)
+		await self.bot.edit_message(question, "Scanning channel messages for speednuke")
 		n = 0
 		delete = []
 		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
