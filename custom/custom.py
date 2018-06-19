@@ -85,9 +85,9 @@ class Custom:
 		
 		length = len(deleteList)//10
 		c = 0
-		for l in [ deleteList[i*length // 10: (i+1)*length // 10] for i in range(10) ]
-			c += len(l)
-			asyncio.ensure_future(self.delete(i, l))
+		for for i in range(10):
+			c += len(deleteList[i*length // 10: (i+1)*length // 10])
+			asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
 		print("{} {}".format(length, c))
 			
 		await self.bot.edit_message(question, "Async 10 thread speednuke started! `{}` messages in nuke queue.".format(n))
