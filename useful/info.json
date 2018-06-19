@@ -1,7 +1,7 @@
 {
     "AUTHOR" : "Goofables",
-    "SHORT" : "desc_short",
-    "DESCRIPTION" : "desc_long",
+    "SHORT" : "Useful stuff",
+    "DESCRIPTION" : "Random usefull stuff",
     "DISABLED" : false,
     "NAME" : "Useful",
     "INSTALL_MSG" : "Have fun!"
