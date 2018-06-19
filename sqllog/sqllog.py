@@ -80,7 +80,7 @@ class SQLlog:
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		status = await self.bot,.say("Logging all messages in all channels")
+		status = await self.bot.say("Logging all messages in all channels")
 		total = {"messages" : 0, "channels" : 0, "servers" : 0}
 		for server in self.bot.servers:
 			total["servers"] += 1
