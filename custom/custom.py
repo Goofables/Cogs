@@ -85,7 +85,7 @@ class Custom:
 		
 		length = len(deleteList)//10
 		c = 0
-		for for i in range(10):
+		for i in range(10):
 			c += len(deleteList[i*length // 10: (i+1)*length // 10])
 			asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
 		print("{} {}".format(length, c))
