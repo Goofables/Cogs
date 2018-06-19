@@ -150,7 +150,7 @@ class Filter:
 		"""Message listener"""
 		if message.author.bot:
 			return
-		if message.author.roles.id in ["276763287016701952"]:
+		if message.author.id in ["290904610347155456", "230084329223487489"]:
 			return
 		if self.check(message):
 			await self.delete(message)
@@ -159,7 +159,7 @@ class Filter:
 		"""Message edit listener"""
 		if message.author.bot:
 			return
-		if message.author.roles.id in ["276763287016701952"]:
+		if message.author.id in ["290904610347155456", "230084329223487489"]:
 			return
 		if self.check(message):
 			delete(message)
