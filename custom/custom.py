@@ -41,9 +41,9 @@ class Custom:
 	async def status(self, ctx, interval = 3):
 		"""Get memory and processing status"""
 		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2))
-		piCPU = await psutil.cpu_percent(interval=0)
-		pCPU = await psutil.cpu_percent(interval=interval)
-		tpCPU = await psutil.cpu_times_percent(interval=interval)
+		piCPU = psutil.cpu_percent(interval=0)
+		pCPU = psutil.cpu_percent(interval=interval)
+		tpCPU = psutil.cpu_times_percent(interval=interval)
 		tCPU = psutil.cpu_times()
 		nCPU = psutil.cpu_count()
 		cpuFreq = psutil.cpu_freq()
