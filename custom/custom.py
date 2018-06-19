@@ -68,16 +68,17 @@ class Custom:
 					continue
 			delete.append(message)
 			n += 1
-		if n > 10:
-			per = n/10
-			for i in range(9):
-				asyncio.ensure_future(delete[i*per:(i+1)*per])
+		per = len(delete)//10
+		for i in range(10):
+			asyncio.ensure_future(delete[i*per:(i+1)*per])
 				
 		await self.bot.say("Scanned channel `{}` messages".format(n))
 		await self.bot.delete_message(ctx.message)
-		print("Delete requested for {} messages from {}".format(n,channel))
+		print("10 threaded delete requested for {} messages from {}".format(n,channel))
 	
 	async def delete(self, messages):
+		if messages == None:
+			return
 		for message in messages:
 			await self.bot.delete_message(message)
 	
