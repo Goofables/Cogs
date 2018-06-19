@@ -45,6 +45,32 @@ class Custom:
 			#tmp = message
 		await self.bot.delete_message(ctx.message)
 		print("Deleted {} messages from {}".format(n,channel))
+	
+	@commands.command(pass_context=True)
+	@checks.admin_or_permissions(manage_server=True)
+	async def speednuke(self, ctx):
+		"""Cleans all messages from a channel."""
+		question = await self.bot.say("Are you sure you want to speednuke this channel"
+						   " Type yes to confirm.")
+		response = await self.bot.wait_for_message(author=ctx.message.author)
+		if not response.content.lower().strip() == "yes":
+			await self.bot.say("Exiting.")
+			return
+		await self.bot.delete_message(question)
+		await self.bot.delete_message(response)
+		n = 0
+		delete = []
+		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
+			if message.pinned:
+				if not message.content.lower() == "!nuke":
+					continue
+			delete.append(message)
+			n += 1
+		async for message in delete:
+			asyncio.ensure_future(self.bot.delete_message(message))
+		await self.bot.say("Scanned channel `{}` messages".format(n))
+		await self.bot.delete_message(ctx.message)
+		print("Delete requested for {} messages from {}".format(n,channel))
 			
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
