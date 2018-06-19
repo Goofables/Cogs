@@ -89,8 +89,9 @@ class SQLlog:
 				try:
 					async for message in self.bot.logs_from(channel, limit=10000000, before=None):
 						total["messages"] += 1
+						if total["messages"]%1000 = 0:
+							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers.".format(total["messages"], total["channels"], total["servers"]))
 						await self.log_message(message)
-						await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers.".format(total["messages"], total["channels"], total["servers"]))
 				except discord.Forbidden:
 					pass
 		msg = "Done!"
