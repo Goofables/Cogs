@@ -14,6 +14,25 @@ class Custom:
 	def __init__(self, bot):
 		self.bot = bot
 		self.channels = fileIO("data/custom/channels.json", "load")
+
+	def memform(num):
+		u = ""
+		s = 0
+		if num > 1000000000:
+			u = "gb"
+			s = num/1000000000
+		else if num > 1000000:
+			u = "mb"
+			s = num/1000000
+		else if num > 1000:
+			u = "kb"
+			s = num/1000
+		else:
+			u = "b"
+		if s > 10:
+			s = int(s)
+		return "{}{}".format(s, u)
+		
 	
 	@commands.command(pass_context=True)
 	@checks.is_owner()
@@ -21,7 +40,7 @@ class Custom:
 		"""Get memory and processing status"""
 		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2))
 		pCPU = psutil.cpu_percent(interval=interval)
-		times3 = psutil.cpu_times_percent(interval=interval)
+		tpCPU = psutil.cpu_times_percent(interval=interval)
 		tCPU = psutil.cpu_times()
 		nCPU = psutil.cpu_count()
 		cpuFreq = psutil.cpu_freq()
@@ -32,8 +51,16 @@ class Custom:
 		footer = "Status"
 		colour = discord.Colour((int(256*(pCPU/100.0))<<16) + (int(256*(mem.percent/100.0))<<8))
 		title = "Sustem status:"
-		information = """	CPU: `{}%`
-							Memory: `{}%`""".format(pCPU, mem.percent)
+		information = 
+		"""**CPU:**
+			Use: `{}%`
+			Idle: `{}%`
+			Cores: `{}`
+		***Memory:**
+			Use: `{}%`
+			Total: `{}`
+			Used: `{}`
+			Open: `{}`""".format(pCPU, tpCPU.idle, nCPU, mem.percent, memform(mem.total), memform(mem.used), memform(mem.open))
 		e = discord.Embed(colour=colour, description=information)
 		e.set_author(name=title)
 		e.set_footer(text=footer)
