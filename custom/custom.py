@@ -98,7 +98,7 @@ class Custom:
 						continue
 				await self.bot.delete_message(message)
 				n += 1
-				if n%100 == 0:
+				if n%2 == 0:
 					await self.bot.edit_message(status, "Nuking channel {} Deleted: `{}` messages".format(channel.mention, n))
 			except Exception as e:
 				print(e)
