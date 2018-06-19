@@ -30,7 +30,7 @@ class Custom:
 		n = 0
 		async for message in self.bot.logs_from(channel, limit=10000000,before=tmp):
 			try:
-				if not (ctx.message.content == "!nuke" and ctx.message.pinned):
+				if not all(ctx.message.content == "!nuke" and ctx.message.pinned):
 					break
 				if message.pinned:
 					if not message.content.lower() == "!nuke":
