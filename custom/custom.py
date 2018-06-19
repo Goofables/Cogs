@@ -84,15 +84,12 @@ class Custom:
 		await self.bot.edit_message(question, "Channel scanned. `{}` messages in nuke queue. Starting async nuke".format(n))
 		
 		length = len(deleteList)
-		c = 0
 		for i in range(10):
-			c += len(deleteList[i*length // 10: (i+1)*length // 10])
 			asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
-		print("{} {}".format(length, c))
-			
-		await self.bot.edit_message(question, "Async 10 thread speednuke started! `{}` messages in nuke queue.".format(n))
-		
-		print("10 threaded delete requested for {} messages from {}".format(n, ctx.message.channel))
+
+		deleteList = []
+		await self.bot.edit_message(question, "Async 10 thread nuke started! `{}` messages in nuke queue.".format(n))
+		print("10 threaded delete requested for `{}` messages from {}".format(n, ctx.message.channel))
 		await self.bot.delete_message(ctx.message)
 	
 	
