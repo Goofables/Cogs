@@ -80,7 +80,7 @@ class SQLlog:
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		await self.log_message(ctx.message)
+		status = await self.say("Logging all messages in all channels")
 		total = {"messages" : 0, "channels" : 0, "servers" : 0}
 		for server in self.bot.servers:
 			total["servers"] += 1
@@ -92,6 +92,7 @@ class SQLlog:
 						await self.log_message(message)
 				except discord.Forbidden:
 					pass
+				await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers.".format(total["messages"], total["channels"], total["servers"]))
 		msg = "Done!"
 		msg += "\nScanned `{}` messages in `{}` channels in `{}` servers.".format(total["messages"], total["channels"], total["servers"])
 		await self.bot.send_message(ctx.message.channel, msg)
