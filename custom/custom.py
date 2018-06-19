@@ -19,7 +19,7 @@ class Custom:
 	@checks.is_owner()
 	async def status(self, ctx, interval = 3):
 		"""Get memory and processing status"""
-		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2)
+		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2))
 		pCPU = psutil.cpu_percent(interval=interval)
 		times3 = psutil.cpu_times_percent(interval=interval)
 		tCPU = psutil.cpu_times()
