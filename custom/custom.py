@@ -106,6 +106,7 @@ class Custom:
 			return
 		for message in messages:
 			await self.bot.delete_message(message)
+		messages = None
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
@@ -135,7 +136,7 @@ class Custom:
 		for i in range(10):
 			asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
 
-		deleteList = []
+		deleteList = None
 		await self.bot.edit_message(question, "Async 10 thread nuke started! `{}` messages in nuke queue.".format(n))
 		print("10 threaded delete requested for `{}` messages from {}".format(n, ctx.message.channel))
 		await self.bot.delete_message(ctx.message)
