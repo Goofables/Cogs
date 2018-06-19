@@ -21,10 +21,10 @@ class Custom:
 		if num > 1000000000:
 			u = "gb"
 			s = num/1000000000
-		else if num > 1000000:
+		elif num > 1000000:
 			u = "mb"
 			s = num/1000000
-		else if num > 1000:
+		elif num > 1000:
 			u = "kb"
 			s = num/1000
 		else:
