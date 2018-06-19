@@ -7,14 +7,38 @@ from .utils import checks
 import asyncio
 import re
 import os
-
+import psutil
 
 class Custom:
 	"""Adds  usefull custom crap"""
 	def __init__(self, bot):
 		self.bot = bot
 		self.channels = fileIO("data/custom/channels.json", "load")
+	
+	@commands.command(pass_context=True)
+	@checks.is_owner()
+	async def status(self, ctx, interval = 3):
+		"""Get memory and processing status"""
+		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2)
+		pCPU = psutil.cpu_percent(interval=interval)
+		times3 = psutil.cpu_times_percent(interval=interval)
+		tCPU = psutil.cpu_times()
+		nCPU = psutil.cpu_count()
+		cpuFreq = psutil.cpu_freq()
+		mem = psutil.virtual_memory()
+		dIO = psutil.disk_io_counters(perdisk=False)
+		nIO = psutil.net_io_counters(pernic=True)
 		
+		footer = "Status"
+		colour = discord.Colour(((256*(100.0/usage3))<<16) + ((256*(mem.percent))<<8))
+		title = "Sustem status:"
+		information = """	CPU: `{}%`
+							Memory: `{}%`""".format(pCPU, mem.percent)
+		e = discord.Embed(colour=colour, description=information)
+		e.set_author(name=title)
+		e.set_footer(text=footer)
+		await self.bot.say(embed=e)
+
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
 	async def nuke(self, ctx):
@@ -161,6 +185,7 @@ class Custom:
 					await self.bot.send_message(server.get_channel(channel), ":small_red_triangle_down: Goodbye {0} ({2})".format(member, server, server.member_count))
 			except AttributeError:
 				pass   
+
 	async def member_kicked(self, member):
 		"""Member remove listener"""
 		server = member.server
@@ -178,7 +203,7 @@ class Custom:
 		"""Force member Join message"""
 		ctx = member
 		self.bot.dispatch("member_join", ctx)
-		self.bot.dispatch("member_remove", ctx)
+		self.bot.dispatch("member_remove", ctx)	@commands.command(pass_context=True, no_pm=True)
 
 	@commands.group(pass_context=True, no_pm=True)
 	@checks.admin_or_permissions(manage_server=True)
