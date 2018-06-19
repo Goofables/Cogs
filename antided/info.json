@@ -1,7 +1,0 @@
-{
-    "AUTHOR" : "Goofables",
-    "SHORT" : "Anti ded",
-    "DESCRIPTION" : "Automatically deletes and temp mutes anyone who says ded.",
-    "DISABLED" : false,
-    "NAME" : "Antided",
-}

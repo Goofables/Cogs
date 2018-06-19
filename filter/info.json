@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "Goofables",
+    "SHORT" : "Filters messages",
+    "DESCRIPTION" : "Automatically deletes any comments that match a regex",
+    "DISABLED" : false,
+    "NAME" : "Filter",
+}

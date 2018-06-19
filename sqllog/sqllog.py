@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import discord
 from discord.ext import commands
 from .utils.dataIO import dataIO
@@ -13,9 +14,14 @@ class SQLlog:
 	
 	async def on_message(self, message):
 		"""Message listener"""
-		if "_console" in message.channel.name:
-			if message.author.bot:
-				return
+		try:
+			if "_console" in message.channel.name:
+				if message.author.bot:
+					return
+		except:
+			print("{} {} {}".format(message.channel, message.author, message.content))
+			return
+		##print("#{}  @{}  '{}'".format(message.channel, message.author, message.content))
 		await self.log_message(message)
 		
 	async def log_message(self, message):

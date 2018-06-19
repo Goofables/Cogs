@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import discord
 from discord.ext import commands
 from discord.enums import MessageType
@@ -29,7 +30,8 @@ class Custom:
 				if not ctx.message.pinned:
 					break
 				if message.pinned:
-					continue
+					if not message.content.lower() == "!nuke":
+						continue
 				await self.bot.delete_message(message)
 				n += 1
 			except:
@@ -110,6 +112,16 @@ class Custom:
 				if self.channels[channel] and server.get_channel(channel).server == server:
 					await self.bot.send_message(server.get_channel(channel), ":small_red_triangle_down: Goodbye {0} ({2})".format(member, server, server.member_count))
 			except AttributeError:
+				pass   
+	async def member_kicked(self, member):
+		"""Member remove listener"""
+		server = member.server
+		print("<> Member '{}' kicked from server '{}'. {}".format(member.name, server.name, server.member_count))
+		for channel in self.channels:
+			try:
+				if self.channels[channel] and server.get_channel(channel).server == server:
+					await self.bot.send_message(server.get_channel(channel), ":exclamation: Kicked {0} ({2})".format(member, server, server.member_count))
+			except AttributeError:
 				pass
 			
 	@commands.command(pass_context=True, no_pm=True)
@@ -153,6 +165,50 @@ class Custom:
 			del self.channels[channel.id]
 		self.save_channels()
 		self.channels = fileIO("data/custom/channels.json", "load")
+		
+	@commands.command(pass_context=True)
+	@checks.is_owner()
+	async def clearconsole(self, ctx):
+		for i in range(100):
+			print()
+	
+	@commands.command(pass_context=True)
+	@checks.is_owner()
+	async def plaintext(self, ctx, *, message):
+		await self.bot.send_message(ctx.message.channel, "```{}```".format(message))
+		
+	async def on_message(self, message):
+		"""Message listener"""
+		if message.author.bot:
+			if message.type == MessageType.pins_add:
+				try:
+					await self.bot.delete_message(message)
+				except discord.Forbidden:
+					pass
+			return
+		if message.author.id == "290904610347155456" or message.author.id == "230084329223487489":
+			if not message.channel.is_private:
+				if any(e in message.content for e in ["❤", "💛", "💚", "💙", "💜", "❣", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "😍", "😚", "😘", "😗", "😙", "☺", "😊", "🤤", "Goofables", "BabyClove"]):
+					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[message.author.id == "290904610347155456"])
+					await self.bot.add_reaction(message, "❤")
+					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[message.author.id == "230084329223487489"])
+
+		if message.channel.is_private:
+			author = message.author
+			if author.id == "230084329223487489":
+				return
+			owner = discord.utils.get(self.bot.get_all_members(), id="230084329223487489")
+			footer = "!dm " + author.id + " <msg>"
+			colour = discord.Colour.red()
+			description = "Sent by {}  ({})".format(author, author.id)
+			e = discord.Embed(colour=colour, description=message.content)
+			if author.avatar_url:
+				e.set_author(name=description, icon_url=author.avatar_url)
+			else:
+				e.set_author(name=description)
+			e.set_footer(text=footer)
+			##await self.bot.send_message(, "{} ({}) said:\n{}".format(message.author, message.author.id, message.content))
+			await self.bot.send_message(owner, embed=e)
 
 	def save_channels(self):
 		fileIO('data/custom/channels.json', 'save', self.channels)
