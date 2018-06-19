@@ -60,14 +60,17 @@ class Custom:
 		await self.bot.edit_message(question, "Scanning channel messages for speednuke")
 		n = 0
 		delete = []
-		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
+		
+		async for message in self.bot.logs_from(ctx.message.channel, limit=10000000, before=ctx.message):
 			if message.pinned:
 				if not message.content.lower() == "!nuke":
 					continue
 			delete.append(message)
 			n += 1
+		
 		async for message in delete:
 			asyncio.ensure_future(self.bot.delete_message(message))
+		
 		await self.bot.say("Scanned channel `{}` messages".format(n))
 		await self.bot.delete_message(ctx.message)
 		print("Delete requested for {} messages from {}".format(n,channel))
