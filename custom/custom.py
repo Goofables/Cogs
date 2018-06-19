@@ -82,12 +82,13 @@ class Custom:
 				await self.bot.edit_message(question, "Scanning channel messages for speednuke. Scanned: `{}`".format(n))
 				
 		await self.bot.edit_message(question, "Channel scanned. `{}` messages in nuke queue. Starting async nuke".format(n))
-		per = len(deleteList)//10
-		print("{} {}".format(len(deleteList), per))
 		
-		for i in range(10):
-			print("{} {}".format(i*per, (i+1)*per))
-			asyncio.ensure_future(self.delete(i, deleteList[i*per:(i+1)*per]))
+		length = len(deleteList)//10
+		c = 0
+		for l in [ deleteList[i*length // 10: (i+1)*length // 10] for i in range(10) ]
+			c += len(l)
+			asyncio.ensure_future(self.delete(i, l))
+		print("{} {}".format(length, c))
 			
 		await self.bot.edit_message(question, "Async 10 thread speednuke started! `{}` messages in nuke queue.".format(n))
 		
