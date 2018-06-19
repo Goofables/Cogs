@@ -60,20 +60,20 @@ class Custom:
 		await self.bot.edit_message(question, "Scanning channel messages for speednuke")
 		await self.bot.delete_message(response)
 		n = 0
-		delete = []
+		deleteList = []
 		
 		async for message in self.bot.logs_from(ctx.message.channel, limit=10000000, before=ctx.message):
 			if message.pinned:
 				if not message.content.lower() == "!nuke":
 					continue
-			delete.append(message)
+			deleteList.append(message)
 			n += 1
 			if n%1000 == 0;
 				await self.bot.edit_message(question, "Scanning channel messages for speednuke. Scanned: `{}`".format(n))
 				
-		per = len(delete)//10
+		per = len(deleteList)//10
 		for i in range(10):
-			asyncio.ensure_future(delete(delete[i*per:(i+1)*per]))
+			asyncio.ensure_future(delete(deleteList[i*per:(i+1)*per]))
 				
 		await self.bot.say("Scanned channel `{}` messages".format(n))
 		await self.bot.delete_message(ctx.message)
