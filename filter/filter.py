@@ -150,12 +150,16 @@ class Filter:
 		"""Message listener"""
 		if message.author.bot:
 			return
+		if message.author.roles.id in ["276763287016701952"]:
+			return
 		if self.check(message):
 			await self.delete(message)
 	
 	async def on_message_edit(self, old_msg, message):
 		"""Message edit listener"""
 		if message.author.bot:
+			return
+		if message.author.roles.id in ["276763287016701952"]:
 			return
 		if self.check(message):
 			delete(message)
