@@ -22,7 +22,10 @@ class Custom:
 		channel = ctx.message.channel
 		async for message in self.bot.logs_from(channel, limit=10,after=ctx.message):
 			if message.type == MessageType.pins_add:
-				await self.bot.delete_message(message)
+				try:
+					await self.bot.delete_message(message)
+				except:
+					pass
 		tmp = ctx.message
 		n = 0
 		async for message in self.bot.logs_from(channel, limit=10000000,before=tmp):
