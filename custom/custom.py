@@ -60,7 +60,7 @@ class Custom:
 			Use: `{}%`
 			Total: `{}`
 			Used: `{}`
-			Open: `{}`""".format(pCPU, tpCPU.idle, nCPU, mem.percent, self.memform(mem.total), self.memform(mem.used), self.memform(mem.open))
+			Open: `{}`""".format(pCPU, tpCPU.idle, nCPU, mem.percent, self.memform(mem.total), self.memform(mem.used), self.memform(mem.free))
 		e = discord.Embed(colour=colour, description=information)
 		e.set_author(name=title)
 		e.set_footer(text=footer)
