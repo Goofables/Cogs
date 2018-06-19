@@ -15,7 +15,7 @@ class Custom:
 		self.bot = bot
 		self.channels = fileIO("data/custom/channels.json", "load")
 
-	def memform(num):
+	def memform(self, num):
 		u = ""
 		s = 0
 		if num > 1000000000:
@@ -60,7 +60,7 @@ class Custom:
 			Use: `{}%`
 			Total: `{}`
 			Used: `{}`
-			Open: `{}`""".format(pCPU, tpCPU.idle, nCPU, mem.percent, memform(mem.total), memform(mem.used), memform(mem.open))
+			Open: `{}`""".format(pCPU, tpCPU.idle, nCPU, mem.percent, self.memform(mem.total), self.memform(mem.used), self.memform(mem.open))
 		e = discord.Embed(colour=colour, description=information)
 		e.set_author(name=title)
 		e.set_footer(text=footer)
