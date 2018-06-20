@@ -96,7 +96,7 @@ class Annoying:
 		if message.channel.is_private:
 			if author.bot:
 				return
-			if author.id == "230084329223487489":
+			if author.id == self.bot.settings.owner:
 				return
 			owner = discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner)
 			footer = "!dm " + author.id + " <msg>"
