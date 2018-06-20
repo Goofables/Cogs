@@ -110,18 +110,24 @@ class Custom:
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
-	async def supernuke(self, ctx):
+	async def supernuke(self, ctx, channel: discord.Channel = None):
 		"""Cleans all messages from a channel."""
-		status = await self.bot.say("Are you sure you want to supernuke this channel? Type `yes` to confirm.")
+		if channel == None:
+			channel = ctx.message.channel
+		status = await self.bot.say("Are you sure you want to supernuke {}? Type `yes` to confirm.".format(channel.mention))
 		response = await self.bot.wait_for_message(author=ctx.message.author)
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		await self.bot.edit_message(status, "Scanning channel messages for supernuke")
+		await self.bot.edit_message(status, "Scanning {} messages for supernuke".format(channel.mention))
+		
+		print("Supernuke requested in {} on {} by user {}".format(channel.name, channel.server.name, ctx.message.author.name))
+
 		n = 0
 		deleteList = []
 		deleteList.append(ctx.message)
 		deleteList.append(response)
+		
 		async for message in self.bot.logs_from(ctx.message.channel, limit=10000000, before=ctx.message):
 			if message.pinned:
 				if not message.content.lower() == "!nuke":
@@ -129,9 +135,9 @@ class Custom:
 			deleteList.append(message)
 			n += 1
 			if n%1000 == 0:
-				await self.bot.edit_message(status, "Scanning channel messages for supernuke. Scanned: `{}`".format(n))
+				await self.bot.edit_message(status, "Scanning {} messages for supernuke. Scanned: `{}`".format(channel.mention, n))
 				
-		await self.bot.edit_message(status, "Channel scanned. `{}` messages in nuke queue. Starting nuke".format(n))
+		await self.bot.edit_message(status, "Channel {} scanned. `{}` messages in nuke queue. Starting nuke".format(channel.mention, n))
 		
 		#length = len(deleteList)
 		#for i in range(10):
@@ -153,11 +159,11 @@ class Custom:
 				pass
 			message = None
 			if t%10 == 0:
-				await self.bot.edit_message(status, "Nuking channel {}\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}`".format(length - t, t, d, f))
+				await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}`".format(length - t, t, d, f))
 
 		deleteList = None
-		await self.bot.edit_message(status, "Done! Nuking channel {}\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}`".format(t, d, f, n))
-		print("Delete requested for `{}` messages from {}".format(n, ctx.message.channel))
+		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}`".format(channel.mention, t, d, f, n))
+		print("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {}".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f))
 	
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
