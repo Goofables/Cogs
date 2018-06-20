@@ -150,6 +150,10 @@ class Custom:
 		while length > 0:
 			message = deleteList[0]
 			deleteList.remove(message)
+
+			if t%10 == 0:
+				await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}`".format(channel.mention, length - t, t, d, f))
+
 			t += 1
 			try:
 				await self.bot.delete_message(message)
@@ -158,8 +162,6 @@ class Custom:
 				f += 1
 				pass
 			message = None
-			if t%10 == 0:
-				await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}`".format(length - t, t, d, f))
 
 		deleteList = None
 		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}`".format(channel.mention, t, d, f, n))
