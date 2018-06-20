@@ -4,6 +4,7 @@ from discord.ext import commands
 from cogs.utils.dataIO import fileIO
 from .utils import checks
 import asyncio
+import os
 
 class Welcome:
 	"""Welcome channels"""
