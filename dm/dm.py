@@ -94,7 +94,7 @@ class Annoying:
 
 	async def on_message(self, message):
 		owner = discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner)
-		await self.bot.send_message(owner, "message: ```{}```".format(message.content))
+		await self.bot.send_message(owner, "message: {} ```{}```".format(message.channel.is_private, message.content))
 		if message.channel.is_private:
 			if author.bot:
 				return
