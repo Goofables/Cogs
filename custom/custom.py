@@ -154,8 +154,6 @@ class Custom:
 			message = deleteList[0]
 			deleteList.remove(message)
 
-			dSec = time.time() - timeS
-			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}` Left: `{}`".format(channel.mention, length - t, t, d, f, datetime.timedelta(seconds=int(dSec)), datetime.timedelta(seconds=int((length - t)//t*dSec))))
 			t += 1
 			try:
 				await self.bot.delete_message(message)
@@ -163,6 +161,8 @@ class Custom:
 			except:
 				f += 1
 				pass
+			dSec = time.time() - timeS
+			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}` Left: `{}`".format(channel.mention, length - t, t, d, f, datetime.timedelta(seconds=int(dSec)), datetime.timedelta(seconds=int((length - t)//t*dSec))))
 			message = None
 
 		dSec = time.time() - timeS
