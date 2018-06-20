@@ -144,13 +144,6 @@ class Custom:
 		#length = len(deleteList)
 		#for i in range(10):
 		#	asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
-        while messages:
-            if len(messages) > 1:
-                await self.bot.delete_messages(messages[:100])
-                messages = messages[100:]
-            else:
-                await self.bot.delete_message(messages[0])
-                messages = []
 		
 		d = 0
 		f = 0
