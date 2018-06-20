@@ -1,0 +1,7 @@
+{
+    "AUTHOR" : "Goofables",
+    "SHORT" : "DM commands",
+    "DESCRIPTION" : "DM and spam commands",
+    "DISABLED" : false,
+    "NAME" : "dm"
+}
