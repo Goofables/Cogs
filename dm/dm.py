@@ -93,11 +93,12 @@ class Annoying:
 			await self.bot.delete_message(message)
 
 	async def on_message(self, message):
-		author = message.author
 		if message.channel.is_private:
+			author = message.author
 			if author.bot:
 				return
-			if author.id == self.bot.settings.owner:
+			owner = discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner)
+			if author == owner:
 				return
 			await self.bot.send_message(owner, message.content)
 			footer = "!dm " + author.id + " <msg>"
