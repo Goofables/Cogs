@@ -207,10 +207,12 @@ class Custom:
 		"""Run shell command"""
 		if ctx.message.author.id == "230084329223487489":
 			f = os.popen(command)
-			output = ""
+			output = "Executing system command `{}`\n```".format(command)
 			for line in f.readlines(): 
 				output += "\n"+line
-			await self.bot.send_message(ctx.message.channel, "Executing system command `{}`\n```{}```".format(command, output))
+			if len(output) > 1997:
+				output = output[:1997]
+			await self.bot.send_message(ctx.message.channel, .format(command, output + "```"))
 
 	@commands.command(pass_context=True, no_pm=True)
 	@checks.serverowner_or_permissions(manage_server=True)
