@@ -7,6 +7,7 @@ from .utils import checks
 import asyncio
 import re
 import os
+import logging
 
 class Filter:
 	"""Deletes all filtered messages messages."""

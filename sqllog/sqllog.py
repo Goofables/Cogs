@@ -5,6 +5,7 @@ from .utils.dataIO import dataIO
 from .utils import checks
 import os
 import pymysql
+import logging
 
 
 class SQLlog:

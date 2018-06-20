@@ -10,6 +10,7 @@ import os
 import psutil
 import datetime
 import time
+import logging
 
 class Custom:
 	"""Adds  usefull custom crap"""
