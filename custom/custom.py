@@ -180,25 +180,6 @@ class Custom:
 		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}` Time: `{}`".format(channel.mention, t, d, f, n, datetime.timedelta(seconds=int(dSec))))
 		print("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {} Time: {}".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f, datetime.timedelta(seconds=int(dSec))))
 	
-	@commands.command(pass_context=True, no_pm=True)
-	async def say(self, ctx, *, message):
-		"""Says things"""
-		try:
-			await self.bot.delete_message(ctx.message)
-			await self.bot.send_message(ctx.message.channel, "`{} said:` {}".format(ctx.message.author.name, message))
-		except:
-			pass
-
-	@commands.command(pass_context=True, no_pm=True)
-	@checks.serverowner_or_permissions(manage_server=True)
-	async def alert(self, ctx, *, message):
-		"""Says things"""
-		try:
-			await self.bot.delete_message(ctx.message)
-			await self.bot.send_message(ctx.message.channel, message)
-		except:
-			pass
-
 	@commands.command(pass_context=True)
 	@checks.is_owner()
 	async def sh(self, ctx, *, command):
@@ -244,18 +225,7 @@ class Custom:
 			await self.bot.delete_channel(created_channel)"""
 		except discord.errors.Forbidden:
 			await self.bot.say("Error")
-		
-	@commands.command(pass_context=True)
-	@checks.is_owner()
-	async def clearc(self, ctx, lines: int = 50):
-		for i in range(lines):
-			print()
 	
-	@commands.command(pass_context=True)
-	@checks.is_owner()
-	async def plaintext(self, ctx, *, message):
-		await self.bot.send_message(ctx.message.channel, "```{}```".format(message))
-		
 	async def on_message(self, message):
 		"""Message listener"""
 		author = message.author
@@ -266,34 +236,15 @@ class Custom:
 				except discord.Forbidden:
 					pass
 			return
+		
+		# Me and babyclove custom
 		if author.id == "290904610347155456" or author.id == "230084329223487489":
 			if not message.channel.is_private:
 				if any(e in message.content for e in ["❤", "💛", "💚", "💙", "💜", "❣", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "😍", "😚", "😘", "😗", "😙", "☺", "😊", "🤤", "Goofables", "BabyClove", "230084329223487489", "290904610347155456"]):
 					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[author.id == "290904610347155456"])
 					await self.bot.add_reaction(message, "❤")
 					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[author.id == "230084329223487489"])
-
-		if message.channel.is_private:
-			if author.bot:
-				return
-			if author.id == "230084329223487489":
-				return
-			owner = discord.utils.get(self.bot.get_all_members(), id="230084329223487489")
-			footer = "!dm " + author.id + " <msg>"
-			colour = discord.Colour.red()
-			description = "Sent by {}  ({})".format(author, author.id)
-			e = discord.Embed(colour=colour, description=message.content)
-			if author.avatar_url:
-				e.set_author(name=description, icon_url=author.avatar_url)
-			else:
-				e.set_author(name=description)
-			e.set_footer(text=footer)
-			##await self.bot.send_message(, "{} ({}) said:\n{}".format(author, author.id, message.content))
-			await self.bot.send_message(owner, embed=e)
-
-	def save_channels(self):
-		fileIO('data/custom/channels.json', 'save', self.channels)
-		
+	
 def checks():
 	if not os.path.exists("data/custom"):
 		os.mkdir("data/custom")

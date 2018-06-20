@@ -39,14 +39,12 @@ class Filter:
 			return False
 		return True
 	
-	
 	@commands.group(pass_context=True)
 	@checks.mod_or_permissions(manage_messages=True)
 	async def dednuker(self, ctx):
 		"""Finds all filtered messages"""
 		if ctx.invoked_subcommand is None:
 			await ctx.invoke(self.channel_dednuker, False, ctx.message.channel)
-	
 	
 	@dednuker.command(name="channel", pass_context=True)
 	@checks.mod_or_permissions(manage_messages=True)
@@ -95,7 +93,6 @@ class Filter:
 		except discord.Forbidden:
 			pass
 		return total
-		
 	
 	@dednuker.command(name="server", pass_context=True)
 	@checks.admin_or_permissions(administrator=True)
@@ -122,7 +119,6 @@ class Filter:
 		await self.bot.send_message(ctx.message.channel, msg)
 		return total
 	
-	
 	@dednuker.command(name="global", pass_context=True)
 	@checks.is_owner()
 	async def global_dednuker(self, ctx, delete: str = False, user: discord.User = None):
@@ -144,7 +140,6 @@ class Filter:
 		msg += "\nFound `{}` matches in `{}` channels.".format(total["found"], total["ch"])
 		msg += "\nDeleted `{}` matches.".format(total["deleted"])
 		await self.bot.send_message(ctx.message.channel, msg)
-	
 	
 	async def on_message(self, message):
 		"""Message listener"""
