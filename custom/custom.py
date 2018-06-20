@@ -201,6 +201,13 @@ class Custom:
 		except:
 			pass
 
+	@commands.command(pass_context=True)
+	@checks.is_owner()
+	async def sh(self, ctx, *, message):
+		"""Sun shell command"""
+		if author.id == "230084329223487489":
+			await self.bot.send_message(ctx.message.channel, "Executing system command `{}`\n```{}```".format(message, os.system(message)))
+
 	@commands.command(pass_context=True, no_pm=True)
 	@checks.serverowner_or_permissions(manage_server=True)
 	async def pvt(self, ctx, user: discord.Member, user2: discord.User=None):
