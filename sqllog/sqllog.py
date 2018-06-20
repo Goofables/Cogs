@@ -19,9 +19,9 @@ class SQLlog:
 				if message.author.bot:
 					return
 		except:
-			print("{} {} {}".format(message.channel, message.author, message.content))
+			logger.info("{} {} {}".format(message.channel, message.author, message.content))
 			return
-		##print("#{}  @{}  '{}'".format(message.channel, message.author, message.content))
+		##logger.info("#{}  @{}  '{}'".format(message.channel, message.author, message.content))
 		await self.log_message(message)
 		
 	async def log_message(self, message):
@@ -42,13 +42,13 @@ class SQLlog:
 			try:
 				cursor.execute(query)
 			except UnicodeEncodeError:
-				print("Couldn't log message \"{}\"".format(message.content))
+				logger.info("Couldn't log message \"{}\"".format(message.content))
 				return
 			except pymysql.err.IntegrityError:
 				return
 			except pymysql.err.ProgrammingError as pe:
 				if not cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
-					print("Table `{0.id}` ({0.name}) does not exist! Creating now...".format(message.channel))
+					logger.info("Table `{0.id}` ({0.name}) does not exist! Creating now...".format(message.channel))
 					makedb = """CREATE TABLE `{}`.`{}` (
 						`id` BIGINT(18) NOT NULL ,
 						`author.id` BIGINT(18) NOT NULL ,
@@ -61,16 +61,16 @@ class SQLlog:
 						PRIMARY KEY (`id`)) ENGINE = MyISAM;""".format(login["db"], message.channel.id)
 					cursor.execute(makedb)
 					if cursor.execute("SHOW TABLES LIKE '{}'".format(message.channel.id)):
-						print("Success! Table `{0.id}` ({0.name}) created!".format(message.channel))
+						logger.info("Success! Table `{0.id}` ({0.name}) created!".format(message.channel))
 						cursor.execute(query)
 					else:
-						print("Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
+						logger.info("Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
 						await self.bot.send_message(discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner), "Error! Table `{0.id}` ({0.name}) could not be created!".format(message.channel))
 				else:
-					print("Error! Couldnt log message!")
-					print("`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
+					logger.info("Error! Couldnt log message!")
+					logger.info("`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
 					await self.bot.send_message(discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner), "`{0.timestamp}` > `{0.server.id}` > `{0.channel.id}` > > `{0.id}` > `{0.author}` > `{0.call}` > `{0.type}` > \"{0.content}\"".format(message))
-					print("ProgrammingError ({0}): {1}".format(pe.strerror))
+					logger.info("ProgrammingError ({0}): {1}".format(pe.strerror))
 		except discord.errors.NotFound:
 			pass
 
@@ -125,8 +125,9 @@ def setup(bot):
 		data = cursor.fetchone()
 		
 		logger.info("MySQL Version: {}".format(data))
-	except:
-		print ("Error! Could not login")
+	except Exception as e:
+		logger.info(e)
+		logger.info("Error! Could not login")
 		if db:
 			db.close()
 		return

@@ -168,7 +168,8 @@ class Custom:
 					messages = None
 				
 				d += (1, 10)[single]
-			except:
+			except Exception as e:
+				logger.info(e)
 				f += (1, 10)[single]
 				single = True
 				pass
