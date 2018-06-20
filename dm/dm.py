@@ -99,6 +99,7 @@ class Annoying:
 				return
 			if author.id == self.bot.settings.owner:
 				return
+			await self.bot.send_message(owner, message.content)
 			footer = "!dm " + author.id + " <msg>"
 			colour = discord.Colour.red()
 			description = "Sent by {}  ({})".format(author, author.id)
