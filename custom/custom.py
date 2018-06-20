@@ -206,7 +206,11 @@ class Custom:
 	async def sh(self, ctx, *, command):
 		"""Run shell command"""
 		if ctx.message.author.id == "230084329223487489":
-			await self.bot.send_message(ctx.message.channel, "Executing system command `{}`\n```{}```".format(command, os.system(command)))
+			fin, fout = os.popen3(command)
+			fin.close()
+			output = fout.read()
+			exitCode = fout.close()
+			await self.bot.send_message(ctx.message.channel, "Executing system command `{}`\n```{}```".format(command, output))
 
 	@commands.command(pass_context=True, no_pm=True)
 	@checks.serverowner_or_permissions(manage_server=True)
