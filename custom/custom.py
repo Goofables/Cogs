@@ -269,14 +269,14 @@ class Custom:
 			except AttributeError:
 				pass   
 
-	async def member_kicked(self, member):
+	async def member_ben(self, member):
 		"""Member remove listener"""
 		server = member.server
-		print("<> Member '{}' kicked from server '{}'. {}".format(member.name, server.name, server.member_count))
+		print("<> Member '{}' banned from server '{}'. {}".format(member.name, server.name, server.member_count))
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
-					await self.bot.send_message(server.get_channel(channel), ":exclamation: Kicked `{0}` (Members: {2})".format(member, server, server.member_count))
+					await self.bot.send_message(server.get_channel(channel), ":no_entry: `{0}` has been banned (Members: {2})".format(member, server, server.member_count))
 			except AttributeError:
 				pass
 			
@@ -378,7 +378,7 @@ def checks():
 		
 def setup(bot):
 	checks()
-	#bot.add_listener(Custom(bot).member_join,"on_member_join")
-	#bot.add_listener(Custom(bot).member_remove,"on_member_remove") 
-	#bot.add_listener(Custom(bot).member_kicked,"on_member_kicked") 
+	bot.add_listener(Custom(bot).member_join,"on_member_join")
+	bot.add_listener(Custom(bot).member_remove,"on_member_remove") 
+	bot.add_listener(Custom(bot).member_ban,"on_member_ban") 
 	bot.add_cog(Custom(bot))
