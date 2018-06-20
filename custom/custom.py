@@ -309,7 +309,6 @@ class Custom:
 		"""Toggles welcome messages for channel"""
 		if channel == None:
 			channel = ctx.message.channel
-		await self.bot.delete_message(ctx.message)
 		if channel.id not in self.channels:
 			self.channels[channel.id] = True
 		else:
