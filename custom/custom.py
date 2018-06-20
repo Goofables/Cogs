@@ -144,27 +144,45 @@ class Custom:
 		#length = len(deleteList)
 		#for i in range(10):
 		#	asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
+        while messages:
+            if len(messages) > 1:
+                await self.bot.delete_messages(messages[:100])
+                messages = messages[100:]
+            else:
+                await self.bot.delete_message(messages[0])
+                messages = []
 		
 		d = 0
 		f = 0
 		t = 0
 		length = len(deleteList)
 		timeS = int(time.time())
-		while length > 0:
-			message = deleteList[0]
-			deleteList.remove(message)
+		single = False
+		while len(deleteList) > 0:
 
-			t += 1
+			
+			t += (1, 10)[single]
 			try:
-				await self.bot.delete_message(message)
-				d += 1
+				if single:
+					message = deleteList[:1]
+					deleteList = deleteList[1:]
+					await self.bot.delete_message(message)
+					message = None
+				else: 
+					messages = deleteList[:10]
+					deleteList = deleteList[10:]
+					await self.bot.delete_messages(messages)
+					messages = None
+				
+				d += (1, 10)[single]
 			except:
-				f += 1
+				f += (1, 10)[single]
+				single = True
 				pass
 			dSec = time.time() - timeS
 			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}` Left: `{}`".format(channel.mention, length - t, t, d, f, datetime.timedelta(seconds=int(dSec)), datetime.timedelta(seconds=int((length - t)//t*dSec))))
-			message = None
-
+            await asyncio.sleep(1.0)
+			
 		dSec = time.time() - timeS
 		deleteList = None
 		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}` Time: `{}`".format(channel.mention, t, d, f, n, datetime.timedelta(seconds=int(dSec))))
@@ -310,22 +328,24 @@ class Custom:
 		
 	async def on_message(self, message):
 		"""Message listener"""
-		if message.author.bot:
+		author = message.author
+		if author.bot:
 			if message.type == MessageType.pins_add:
 				try:
 					await self.bot.delete_message(message)
 				except discord.Forbidden:
 					pass
 			return
-		if message.author.id == "290904610347155456" or message.author.id == "230084329223487489":
+		if author.id == "290904610347155456" or author.id == "230084329223487489":
 			if not message.channel.is_private:
 				if any(e in message.content for e in ["❤", "💛", "💚", "💙", "💜", "❣", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "😍", "😚", "😘", "😗", "😙", "☺", "😊", "🤤", "Goofables", "BabyClove"]):
-					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[message.author.id == "290904610347155456"])
+					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[author.id == "290904610347155456"])
 					await self.bot.add_reaction(message, "❤")
-					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[message.author.id == "230084329223487489"])
+					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[author.id == "230084329223487489"])
 
 		if message.channel.is_private:
-			author = message.author
+			if author.bot:
+				return
 			if author.id == "230084329223487489":
 				return
 			owner = discord.utils.get(self.bot.get_all_members(), id="230084329223487489")
@@ -338,7 +358,7 @@ class Custom:
 			else:
 				e.set_author(name=description)
 			e.set_footer(text=footer)
-			##await self.bot.send_message(, "{} ({}) said:\n{}".format(message.author, message.author.id, message.content))
+			##await self.bot.send_message(, "{} ({}) said:\n{}".format(author, author.id, message.content))
 			await self.bot.send_message(owner, embed=e)
 
 	def save_channels(self):
