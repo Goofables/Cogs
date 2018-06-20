@@ -209,7 +209,7 @@ class Custom:
 			f = os.popen(command)
 			output = "Executing system command `{}`\n```".format(command)
 			for line in f.readlines(): 
-				output += "\n"+line
+				output += line
 			if len(output) > 1997:
 				output = output[:1997]
 			await self.bot.send_message(ctx.message.channel, output + "```")
