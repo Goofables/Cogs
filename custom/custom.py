@@ -179,7 +179,7 @@ class Custom:
 		dSec = time.time() - timeS
 		deleteList = None
 		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}` Time: `{}`".format(channel.mention, t, d, f, n, datetime.timedelta(seconds=int(dSec))))
-		print("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {} Time: {}".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f, datetime.timedelta(seconds=int(dSec))))
+		logger.info("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {} Time: {}".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f, datetime.timedelta(seconds=int(dSec))))
 	
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
@@ -236,7 +236,7 @@ class Custom:
 	async def member_join(self, member):
 		"""Member Join listener"""
 		server = member.server
-		print("<> Member '{}' joined server '{}'. {}".format(member.name, server.name, server.member_count))
+		logger.info("<> Member '{}' joined server '{}'. {}".format(member.name, server.name, server.member_count))
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
@@ -247,7 +247,7 @@ class Custom:
 	async def member_remove(self, member):
 		"""Member remove listener"""
 		server = member.server
-		print("<> Member '{}' left server '{}'. {}".format(member.name, server.name, server.member_count))
+		logger.info("<> Member '{}' left server '{}'. {}".format(member.name, server.name, server.member_count))
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
@@ -258,7 +258,7 @@ class Custom:
 	async def member_kicked(self, member):
 		"""Member remove listener"""
 		server = member.server
-		print("<> Member '{}' kicked from server '{}'. {}".format(member.name, server.name, server.member_count))
+		logger.info("<> Member '{}' kicked from server '{}'. {}".format(member.name, server.name, server.member_count))
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
@@ -312,7 +312,7 @@ class Custom:
 	@checks.is_owner()
 	async def clearconsole(self, ctx):
 		for i in range(100):
-			print()
+			logger.info()
 	
 	@commands.command(pass_context=True)
 	@checks.is_owner()

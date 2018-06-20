@@ -23,8 +23,8 @@ class Filter:
 		
 	def check(self, message:discord.Message):
 		msgLen = len(message.content)
-		for reg, l, channels in self.regs:
-			if msgLen > l or (channels is not None and message.channel.name.lower() in channels):
+		for reg, max, channels in self.regs:
+			if msgLen > max or (channels is not None and message.channel.name.lower() in channels):
 				continue
 			if reg.match(message.content.lower()):
 				return True

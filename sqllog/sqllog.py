@@ -124,7 +124,7 @@ def setup(bot):
 		cursor.execute("SELECT VERSION()")
 		data = cursor.fetchone()
 		
-		print("MySQL Version: {}".format(data))
+		logger.info("MySQL Version: {}".format(data))
 	except:
 		print ("Error! Could not login")
 		if db:
