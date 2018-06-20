@@ -286,7 +286,7 @@ class Custom:
 		"""Force member Join message"""
 		ctx = member
 		self.bot.dispatch("member_join", ctx)
-		self.bot.dispatch("member_remove", ctx)	@commands.command(pass_context=True, no_pm=True)
+		self.bot.dispatch("member_remove", ctx)
 
 	@commands.group(pass_context=True, no_pm=True)
 	@checks.admin_or_permissions(manage_server=True)
