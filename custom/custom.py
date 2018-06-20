@@ -269,7 +269,7 @@ class Custom:
 			except AttributeError:
 				pass   
 
-	async def member_ben(self, member):
+	async def member_ban(self, member):
 		"""Member remove listener"""
 		server = member.server
 		print("<> Member '{}' banned from server '{}'. {}".format(member.name, server.name, server.member_count))
