@@ -107,27 +107,17 @@ class Custom:
 		await self.bot.edit_message(status, "Done nuking {} Deleted: `{}` messages".format(channel.mention, n))
 		await self.bot.delete_message(ctx.message)
 		print("Nuked {} messages from {}".format(n,channel))
-	
-	async def delete(self, id, messages):
-		if messages == None:
-			return
-		for message in messages:
-			try:
-				await self.bot.delete_message(message)
-			except:
-				pass
-		messages = None
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
 	async def supernuke(self, ctx):
 		"""Cleans all messages from a channel."""
-		question = await self.bot.say("Are you sure you want to supernuke this channel? Type `yes` to confirm.")
+		status = await self.bot.say("Are you sure you want to supernuke this channel? Type `yes` to confirm.")
 		response = await self.bot.wait_for_message(author=ctx.message.author)
 		if not response.content.lower().strip() == "yes":
 			await self.bot.say("Exiting.")
 			return
-		await self.bot.edit_message(question, "Scanning channel messages for supernuke")
+		await self.bot.edit_message(status, "Scanning channel messages for supernuke")
 		n = 0
 		deleteList = []
 		deleteList.append(ctx.message)
@@ -139,18 +129,35 @@ class Custom:
 			deleteList.append(message)
 			n += 1
 			if n%1000 == 0:
-				await self.bot.edit_message(question, "Scanning channel messages for supernuke. Scanned: `{}`".format(n))
+				await self.bot.edit_message(status, "Scanning channel messages for supernuke. Scanned: `{}`".format(n))
 				
-		await self.bot.edit_message(question, "Channel scanned. `{}` messages in nuke queue. Starting async nuke".format(n))
+		await self.bot.edit_message(status, "Channel scanned. `{}` messages in nuke queue. Starting nuke".format(n))
 		
+		#length = len(deleteList)
+		#for i in range(10):
+		#	asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
+		
+		d = 0
+		f = 0
+		t = 0
 		length = len(deleteList)
-		for i in range(10):
-			asyncio.ensure_future(self.delete(i, deleteList[i*length // 10: (i+1)*length // 10]))
+		while length > 0:
+			message = deleteList[0]
+			deleteList.remove(message)
+			t += 1
+			try:
+				await self.bot.delete_message(message)
+				d += 1
+			except:
+				f += 1
+				pass
+			message = None
+			if t%10 == 0:
+				await self.bot.edit_message(status, "Nuking channel {}\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}`".format(length - t, t, d, f))
 
 		deleteList = None
-		await self.bot.edit_message(question, "Nuke started! Estop with shutdown. `{}` messages in nuke queue.".format(n))
+		await self.bot.edit_message(status, "Done! Nuking channel {}\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}`".format(t, d, f, n))
 		print("Delete requested for `{}` messages from {}".format(n, ctx.message.channel))
-	
 	
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
