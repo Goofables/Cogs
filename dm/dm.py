@@ -93,6 +93,8 @@ class Annoying:
 			await self.bot.delete_message(message)
 
 	async def on_message(self, message):
+		owner = discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner)
+		await self.bot.send_message(owner, "message: ```{}```".format(message.content))
 		if message.channel.is_private:
 			if author.bot:
 				return
