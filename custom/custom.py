@@ -380,4 +380,5 @@ def setup(bot):
 	checks()
 	bot.add_listener(Custom(bot).member_join,"on_member_join")
 	bot.add_listener(Custom(bot).member_remove,"on_member_remove") 
+	bot.add_listener(Custom(bot).member_kicked,"on_member_kicked") 
 	bot.add_cog(Custom(bot))
