@@ -265,7 +265,7 @@ class Custom:
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
-					await self.bot.send_message(server.get_channel(channel), ":small_red_triangle_down: Goodbye {0} ({2})".format(member, server, server.member_count))
+					await self.bot.send_message(server.get_channel(channel), ":small_red_triangle_down: Goodbye `{0}` (Members: {2})".format(member, server, server.member_count))
 			except AttributeError:
 				pass   
 
@@ -276,7 +276,7 @@ class Custom:
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
-					await self.bot.send_message(server.get_channel(channel), ":exclamation: Kicked {0} ({2})".format(member, server, server.member_count))
+					await self.bot.send_message(server.get_channel(channel), ":exclamation: Kicked `{0}` (Members: {2})".format(member, server, server.member_count))
 			except AttributeError:
 				pass
 			
