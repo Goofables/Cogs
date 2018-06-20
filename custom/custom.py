@@ -174,7 +174,7 @@ class Custom:
 				pass
 			dSec = time.time() - timeS
 			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}` Left: `{}`".format(channel.mention, length - t, t, d, f, datetime.timedelta(seconds=int(dSec)), datetime.timedelta(seconds=int((length - t)//t*dSec))))
-            await asyncio.sleep(1.0)
+			await asyncio.sleep(1.0)
 			
 		dSec = time.time() - timeS
 		deleteList = None
