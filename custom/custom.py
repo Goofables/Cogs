@@ -136,9 +136,9 @@ class Custom:
 			deleteList.append(message)
 			n += 1
 			if n%1000 == 0:
-				await self.bot.edit_message(status, "Scanning {} messages for supernuke. Scanned: `{}` ({}s)".format(channel.mention, n, timeS - time.time()))
+				await self.bot.edit_message(status, "Scanning {} messages for supernuke. Scanned: `{}` ({}s)".format(channel.mention, n, int(time.time()) - timeS))
 				
-		await self.bot.edit_message(status, "Channel {} scanned ({}s). `{}` messages in nuke queue. Starting nuke".format(channel.mention, timeS - time.time(), n))
+		await self.bot.edit_message(status, "Channel {} scanned ({}s). `{}` messages in nuke queue. Starting nuke".format(channel.mention, int(time.time()) - timeS, n))
 		
 		#length = len(deleteList)
 		#for i in range(10):
@@ -153,7 +153,7 @@ class Custom:
 			message = deleteList[0]
 			deleteList.remove(message)
 
-			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}s`".format(channel.mention, length - t, t, d, f, timeS - time.time()))
+			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}s`".format(channel.mention, length - t, t, d, f, int(time.time()) - timeS))
 
 			t += 1
 			try:
@@ -165,8 +165,8 @@ class Custom:
 			message = None
 
 		deleteList = None
-		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}` Time: `{}s`".format(channel.mention, t, d, f, n, timeS - time.time()))
-		print("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {} Time: {}s".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f, timeS - time.time()))
+		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}` Time: `{}s`".format(channel.mention, t, d, f, n, int(time.time()) - timeS))
+		print("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {} Time: {}s".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f, int(time.time()) - timeS))
 	
 	@commands.command(pass_context=True, no_pm=True)
 	async def say(self, ctx, *, message):
