@@ -17,6 +17,7 @@ class Annoying:
 {2} For amount left"""
 		text = message
 		try:
+			await self.bot.add_reaction(ctx.message, "✔")
 			await self.bot.delete_message(ctx.message)
 		except:
 			pass
@@ -33,7 +34,11 @@ class Annoying:
 {1} for total
 {2} For amount left"""
 		text = message
-		await self.bot.delete_message(ctx.message)
+		try:
+			await self.bot.add_reaction(ctx.message, "✔")
+			await self.bot.delete_message(ctx.message)
+		except:
+			pass
 		number = 0
 		while (number < amount):
 			number = number + 1
@@ -46,9 +51,9 @@ class Annoying:
 		"""DMs a user"""
 		await self.bot.send_message(user, "{} ".format(message))
 		try:
+			await self.bot.add_reaction(ctx.message, "✔")
 			await self.bot.delete_message(ctx.message)
 		except:
-			await self.bot.add_reaction(ctx.message, "✔")
 			pass
 			
 	@commands.command(pass_context=True)
@@ -58,7 +63,11 @@ class Annoying:
 {0} For number
 {1} for total
 {2} For amount left"""
-		await self.bot.delete_message(ctx.message)
+		try:
+			await self.bot.add_reaction(ctx.message, "✔")
+			await self.bot.delete_message(ctx.message)
+		except:
+			pass
 		number = 0
 		while (number < amount):
 			number = number + 1
@@ -72,7 +81,11 @@ class Annoying:
 {1} for total
 {2} For amount left"""
 		text = message
-		await self.bot.delete_message(ctx.message)
+		try:
+			await self.bot.add_reaction(ctx.message, "✔")
+			await self.bot.delete_message(ctx.message)
+		except:
+			pass
 		number = 0
 		while (number < amount):
 			number = number + 1
@@ -85,7 +98,7 @@ class Annoying:
 				return
 			if author.id == "230084329223487489":
 				return
-			owner = discord.utils.get(self.bot.get_all_members(), id="230084329223487489")
+			owner = discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner)
 			footer = "!dm " + author.id + " <msg>"
 			colour = discord.Colour.red()
 			description = "Sent by {}  ({})".format(author, author.id)
