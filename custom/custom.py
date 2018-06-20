@@ -311,8 +311,8 @@ class Custom:
 		
 	@commands.command(pass_context=True)
 	@checks.is_owner()
-	async def clearconsole(self, ctx):
-		for i in range(100):
+	async def clearc(self, ctx, lines: int = 50):
+		for i in range(lines):
 			print()
 	
 	@commands.command(pass_context=True)
