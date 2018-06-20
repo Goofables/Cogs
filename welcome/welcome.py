@@ -86,8 +86,8 @@ def checks():
 		
 def setup(bot):
 	checks()
-	if self.message is None:
-		bot.add_listener(Welcome(bot).member_join,"on_member_join")
-		bot.add_listener(Welcome(bot).member_remove,"on_member_remove") 
-		bot.add_listener(Welcome(bot).member_ban,"on_member_ban") 
-	bot.add_cog(Welcome(bot))
+	wbot = Welcome(bot)
+	bot.add_listener(wbot.member_join,"on_member_join")
+	bot.add_listener(wbot.member_remove,"on_member_remove") 
+	bot.add_listener(wbot.member_ban,"on_member_ban") 
+	bot.add_cog(wbot)
