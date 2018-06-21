@@ -110,6 +110,68 @@ class Custom:
 
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
+	async def mnuke(self, ctx, channel: discord.Channel = None):
+		"""Cleans all messages from a channel with other bots."""
+		await self.bot.pin_message(ctx.message)
+		if channel == None:
+			channel = ctx.message.channel
+		content = ctx.message.content
+		
+		status = await self.bot.say("Configuring multy nuke for channel {}".format(channel.mention))
+		await asyncio.sleep(1.0)
+		all = 0
+		me = -1
+		async for message in self.bot.logs_from(channel, limit=25, after=ctx.message):
+			if message.type == MessageType.pins_add:
+				try:
+					await self.bot.delete_message(message)
+				except:
+					pass
+				continue
+			if message.author.bot:
+				if message == status:
+					me = all
+				if message.content == status.content:
+					all += 1
+		if all < 1 or me < 0:
+			await self.bot.edit_message(status, "Major error multy nuking channel {} Threads: `{}` Me: `{}`".format(channel.mention, me, all))
+			raise Exception('Something happened!')
+			return
+		
+		
+		tmp = ctx.message
+		n = 0
+		await self.bot.edit_message(status, "Multy nuking channel: {} Thread id: `{}` of `{}`".format(channel.mention, me, all))
+		print("Multy nuking channel {} Thread id: {} of {}".format(channel, me, all))
+		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
+			try:
+				if not (ctx.message.content == content and ctx.message.pinned):
+					print("Nuke aborted in channel {} Thread id: {} of {}".format(channel, me, all))
+					await self.bot.edit_message(status, "Multy nuking aborted in channel {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
+					break
+				if not message.id%all == mine:
+					continue
+				if message.pinned:
+					if not message.content.lower() == "!nuke":
+						continue
+				await self.bot.delete_message(message)
+				n += 1
+				if n%2 == 0:
+					await self.bot.edit_message(status, "Multy nuking channel: {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
+			except Exception as e:
+				print(e)
+				pass
+			#tmp = message
+		print("Multy nuked {} messages from {} Thread id: `{}` of `{}`".format(n, channel, me, all))
+		await self.bot.edit_message(status, "Done multy nuking {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
+		try:
+			await self.bot.delete_message(ctx.message)
+		except:
+			pass
+	
+
+	@commands.command(pass_context=True)
+	@checks.admin_or_permissions(manage_server=True)
 	async def supernuke(self, ctx, channel: discord.Channel = None):
 		"""Cleans all messages from a channel."""
 		if channel == None:
