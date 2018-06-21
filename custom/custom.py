@@ -144,7 +144,7 @@ class Custom:
 		await self.bot.edit_message(status, "Multy nuking channel: {} Thread id: `{}` of `{}`".format(channel.mention, me, all))
 		print("Multy nuking channel {} Thread id: {} of {}".format(channel, me, all))
 		async for message in self.bot.logs_from(channel, limit=10000000, before=ctx.message):
-			print("{}%{} == {}".format(message.id, all, me))
+			print("{}%{} == {}".format(message.id, all, message.id%all))
 			try:
 				if not (ctx.message.content == content and ctx.message.pinned):
 					#print("Nuke aborted in channel {} Thread id: {} of {}".format(channel, me, all))
