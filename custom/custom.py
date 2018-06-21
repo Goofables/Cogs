@@ -118,7 +118,7 @@ class Custom:
 		content = ctx.message.content
 		
 		status = await self.bot.say("Configuring multy nuke for channel {}".format(channel.mention))
-		await asyncio.sleep(1.0)
+		await asyncio.sleep(2.0)
 		all = 0
 		me = -1
 		async for message in self.bot.logs_from(channel, limit=25, after=ctx.message):
@@ -158,7 +158,7 @@ class Custom:
 				await self.bot.delete_message(message)
 				n += 1
 				if n%2 == 0:
-					await self.bot.edit_message(status, "Multy nuking channel: {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
+					await self.bot.edit_message(status, "Multy nuking channel: {} Thread id: `{}` of `{}` Deleted: `{}` messages".format(channel.mention, n, me, all))
 			except Exception as e:
 				print(e)
 				pass
