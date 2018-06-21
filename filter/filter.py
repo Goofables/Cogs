@@ -157,7 +157,7 @@ class Filter:
 		if message.author.id in ["290904610347155456", "230084329223487489"]:
 			return
 		if self.check(message):
-			delete(message)
+			await self.delete(message)
 	
 def setup(bot):
 	bot.add_cog(Filter(bot))
