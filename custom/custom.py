@@ -129,9 +129,9 @@ class Custom:
 					pass
 				continue
 			if message.author.bot:
-				if message == status:
-					me = all
 				if message.content == status.content:
+					if message.author == status.author:
+						me = all
 					all += 1
 		if all < 1 or me < 0:
 			await self.bot.edit_message(status, "Major error multy nuking channel {} Threads: `{}` Me: `{}`".format(channel.mention, all, me))
