@@ -150,6 +150,7 @@ class Custom:
 					await self.bot.edit_message(status, "Multy nuking aborted in channel {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
 					break
 				if not message.id%all == me:
+					print("[]%{} == {}".format(message.id, all, me))
 					continue
 				if message.pinned:
 					if not message.content.lower() == "!nuke":

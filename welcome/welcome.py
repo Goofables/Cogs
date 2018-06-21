@@ -18,7 +18,7 @@ class Welcome:
 		for channel in self.channels:
 			try:
 				if self.channels[channel] and server.get_channel(channel).server == server:
-					await self.bot.send_message(server.get_channel(channel), self.messages[action].format(member.name, server, server.member_count))
+					await self.bot.send_message(server.get_channel(channel), self.messages[action].format((member.mention, member.name)[action == "joined"], server, server.member_count))
 			except AttributeError:
 				pass
 	
