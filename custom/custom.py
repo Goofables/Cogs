@@ -158,6 +158,7 @@ class Custom:
 				await self.bot.delete_message(message)
 				n += 1
 				if n%2 == 0:
+					pass
 					#await self.bot.edit_message(status, "Multy nuking channel: {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
 			except Exception as e:
 				print(e)
