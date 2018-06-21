@@ -134,7 +134,7 @@ class Custom:
 				if message.content == status.content:
 					all += 1
 		if all < 1 or me < 0:
-			await self.bot.edit_message(status, "Major error multy nuking channel {} Threads: `{}` Me: `{}`".format(channel.mention, me, all))
+			await self.bot.edit_message(status, "Major error multy nuking channel {} Threads: `{}` Me: `{}`".format(channel.mention, all, me))
 			raise Exception('Something happened!')
 			return
 		
