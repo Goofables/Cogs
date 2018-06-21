@@ -86,9 +86,9 @@ class Filter:
 		if msg == "\n``````":
 			msg = ""
 		msg = "Channel: {} Messages: `{}` Found: `{}` Deleted: `{}` {} {}".format(channel.mention, total["scanned"], total["found"], total["deleted"], ("", "Cant delete")[delete == None], msg)
-		if len(msg) > 2000:
-			msg = msg[0:1997] + "```"
-		await self.bot.send_message(ctx.message.channel, msg)
+		while len(msg) > 0:
+			await self.bot.send_message(ctx.message.channel, msg[0:1997] + "```")
+			msg = "Channel: {} continued ```{}```".format(channel.mention, msg[1997:])
 		try:
 			await self.bot.delete_message(status)
 		except discord.Forbidden:
