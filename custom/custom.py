@@ -118,7 +118,7 @@ class Custom:
 		content = ctx.message.content
 		
 		status = await self.bot.say("Configuring multy nuke for channel {}".format(channel.mention))
-		await asyncio.sleep(2.0)
+		await asyncio.sleep(3.0)
 		all = 0
 		me = -1
 		async for message in self.bot.logs_from(channel, limit=25, after=ctx.message):
@@ -130,7 +130,7 @@ class Custom:
 				continue
 			if message.author.bot:
 				if message.content == status.content:
-					if message.author == status.author:
+					if message.id == status.id:
 						me = all
 					all += 1
 		if all < 1 or me < 0:
