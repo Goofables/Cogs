@@ -26,6 +26,7 @@ class Filter:
 		for reg, max, channels in self.regs:
 			if msgLen > max or (channels is not None and message.channel.name.lower() in channels):
 				continue
+			print("`{}` checked with {}")
 			if reg.match(message.content.lower()):
 				return True
 		return False
