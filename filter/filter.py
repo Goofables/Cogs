@@ -88,7 +88,7 @@ class Filter:
 		msg = "Channel: {} Messages: `{}` Found: `{}` Deleted: `{}` {} {}".format(channel.mention, total["scanned"], total["found"], total["deleted"], ("", "Cant delete")[delete == None], msg)
 		while len(msg) > 0:
 			await self.bot.send_message(ctx.message.channel, msg[0:1997] + "```")
-			msg = "Channel: {} continued ```{}```".format(channel.mention, msg[1997:])
+			msg = "Channel: {} continued ```{}```".format(channel.mention, msg[1997:-3])
 		try:
 			await self.bot.delete_message(status)
 		except discord.Forbidden:
