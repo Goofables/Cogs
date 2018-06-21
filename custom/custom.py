@@ -94,7 +94,7 @@ class Custom:
 					await self.bot.edit_message(status, "Nuking aborted in channel {} Deleted: `{}` messages".format(channel.mention, n))
 					break
 				if message.pinned:
-					if not message.content.lower() == "!nuke":
+					if not message.content.lower()[-4:] == "nuke":
 						continue
 				await self.bot.delete_message(message)
 				n += 1
@@ -193,7 +193,7 @@ class Custom:
 		timeS = int(time.time())
 		async for message in self.bot.logs_from(ctx.message.channel, limit=10000000, before=ctx.message):
 			if message.pinned:
-				if not message.content.lower() == "!nuke":
+				if not message.content.lower()[-4:] == "nuke":
 					continue
 			deleteList.append(message)
 			n += 1
