@@ -14,8 +14,8 @@ class Filter:
 		self.bot = bot
 		self.regs = [
 	[re.compile("((.*(^|[\W_\d]+)[d]+[\W_\d]*[(e|3|è|é|ê|ë|ē|ė|ę)]+[\W_\d]*[d]+([\W_\d]+|ing|ed|er|$))|^d+e+(a*e*)*d+$)"), 50, ""],
-	[re.compile("(^|[\W_\d ]+)l+[\W_\d]*[yi]+[\W_\d]*d+[\W_\d]*[iay]+($|[\W_\d]+)"), 2000, "friends"],
-	[re.compile("(^|[\W_\d ]+)g+[\W_\d]*[aeiy]+[\W_\d]*l+[\W_\d]*[eiya]+[\W_\d]*n+($|[\W_\d]+)"), 2000, "friends"]
+	[re.compile("(^|.*[\W_\d ]+)l+[\W_\d]*[yi]+[\W_\d]*d+[\W_\d]*[iay]+($|[\W_\d]+)"), 2000, "friends"],
+	[re.compile("(^|.*[\W_\d ]+)g+[\W_\d]*[aeiy]+[\W_\d]*l+[\W_\d]*[eiya]+[\W_\d]*n+($|[\W_\d]+)"), 2000, "friends"]
 		]
 	
 	def fmt(self, message:discord.Message):
