@@ -296,7 +296,7 @@ class Custom:
 			if message.type == MessageType.pins_add:
 				try:
 					await self.bot.delete_message(message)
-				except discord.Forbidden, discord.errors.NotFound:
+				except (discord.Forbidden, discord.errors.NotFound):
 					pass
 			return
 		
