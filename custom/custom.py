@@ -135,7 +135,7 @@ class Custom:
 					all += 1
 		if all < 1 or me < 0:
 			await self.bot.edit_message(status, "Major error multy nuking channel {} Threads: `{}` Me: `{}`".format(channel.mention, all, me))
-			raise Exception('Something happened!')
+			raise Exception('Thread count error! Threads: {} Me: {}'.format(all, me))
 			return
 		
 		
@@ -150,7 +150,6 @@ class Custom:
 					await self.bot.edit_message(status, "Multy nuking aborted in channel {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
 					break
 				if not message.id%all == me:
-					await self.bot.edit_message(status, "{}%{} == {}".format(message.id, all, mine))
 					continue
 				if message.pinned:
 					if not message.content.lower() == "!nuke":
