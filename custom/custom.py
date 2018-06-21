@@ -147,8 +147,8 @@ class Custom:
 			print("{}%{} == {}".format(message.id, all, me))
 			try:
 				if not (ctx.message.content == content and ctx.message.pinned):
-					print("Nuke aborted in channel {} Thread id: {} of {}".format(channel, me, all))
-					await self.bot.edit_message(status, "Multy nuking aborted in channel {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
+					#print("Nuke aborted in channel {} Thread id: {} of {}".format(channel, me, all))
+					#await self.bot.edit_message(status, "Multy nuking aborted in channel {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
 					break
 				if not message.id%all == me:
 					continue
@@ -158,7 +158,7 @@ class Custom:
 				await self.bot.delete_message(message)
 				n += 1
 				if n%2 == 0:
-					await self.bot.edit_message(status, "Multy nuking channel: {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
+					#await self.bot.edit_message(status, "Multy nuking channel: {} Deleted: `{}` messages. Thread id: `{}` of `{}`".format(channel.mention, n, me, all))
 			except Exception as e:
 				print(e)
 				pass
