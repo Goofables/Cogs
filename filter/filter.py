@@ -86,7 +86,7 @@ class Filter:
 		if msg == "\n``````":
 			msg = ""
 		msg = "Channel: {} Messages: `{}` Found: `{}` Deleted: `{}` {} {}".format(channel.mention, total["scanned"], total["found"], total["deleted"], ("", "Cant delete")[delete == None], msg)
-		while len(msg) > 0:
+		while len(msg) > len("Channel: {} continued ``````".format(channel.mention)):
 			await self.bot.send_message(ctx.message.channel, msg[0:1997] + "```")
 			msg = "Channel: {} continued ```{}```".format(channel.mention, msg[1997:-3])
 		try:
