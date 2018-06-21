@@ -153,7 +153,7 @@ class Custom:
 				if not int(message.id)%all == me:
 					continue
 				if message.pinned:
-					if not message.content.lower() == "!nuke":
+					if not message.content.lower()[-4:] == "nuke":
 						continue
 				await self.bot.delete_message(message)
 				n += 1
@@ -230,9 +230,9 @@ class Custom:
 				
 				d += (1, 10)[single]
 			except Exception as e:
+				single = True
 				print(e)
 				f += (1, 10)[single]
-				single = True
 				pass
 			dSec = time.time() - timeS
 			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}` Left: `{}`".format(channel.mention, length - t, t, d, f, datetime.timedelta(seconds=int(dSec)), datetime.timedelta(seconds=int((length - t)//t*dSec))))
