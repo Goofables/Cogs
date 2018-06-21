@@ -215,12 +215,12 @@ class Custom:
 		while len(deleteList) > 0:
 
 			
-			t += (1, 10)[single]
+			t += (10, 1)[single]
 			try:
 				if single:
 					message = deleteList[:1]
 					deleteList = deleteList[1:]
-					await self.bot.delete_message(message)
+					await self.bot.delete_message(message[0])
 					message = None
 				else: 
 					messages = deleteList[:10]
@@ -228,11 +228,11 @@ class Custom:
 					await self.bot.delete_messages(messages)
 					messages = None
 				
-				d += (1, 10)[single]
+				d += (10, 1)[single]
 			except Exception as e:
 				single = True
 				print(e)
-				f += (1, 10)[single]
+				f += (10, 1)[single]
 				pass
 			dSec = time.time() - timeS
 			await self.bot.edit_message(status, "Nuking channel {}.\nQueue: `{}` Tried: `{}` Deleted: `{}` Failed: `{}` Time: `{}` Left: `{}`".format(channel.mention, length - t, t, d, f, datetime.timedelta(seconds=int(dSec)), datetime.timedelta(seconds=int((length - t)//t*dSec))))
