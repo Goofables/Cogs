@@ -33,6 +33,12 @@ class Useful:
 		"""Print blank lines to console"""
 		for i in range(lines):
 			print()
+			
+	@commands.command(pass_context=True)
+	@checks.is_owner()
+	async def pin(self, ctx, message:discord.Message):
+		await self.bot.pin_message(message)
+		await self.bot.say("Pinned message. Channel: {}".format(message.channel.mention))
 	
 	@commands.command(pass_context=True)
 	@checks.admin_or_permissions(manage_server=True)
