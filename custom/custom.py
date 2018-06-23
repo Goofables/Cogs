@@ -299,7 +299,7 @@ class Custom:
 			return
 		
 		# Me and babyclove custom
-		if author.id == "290904610347155456" or author.id == "230084329223487489":
+		if message.server.id == "276729442016034816" and (author.id == "290904610347155456" or author.id == "230084329223487489"):
 			if not message.channel.is_private:
 				if any(e in message.content for e in ["❤", "💛", "💚", "💙", "💜", "❣", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "😍", "😚", "😘", "😗", "😙", "☺", "😊", "🤤", "Goofables", "BabyClove", "230084329223487489", "290904610347155456", "456347603035095052", "babe"]):
 					await self.bot.add_reaction(message, (":Goofables:358746533094752257", ":BabyClove:458055015593017376")[author.id == "290904610347155456"])
