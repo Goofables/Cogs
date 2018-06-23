@@ -100,9 +100,9 @@ class Annoying:
 			owner = discord.utils.get(self.bot.get_all_members(), id=self.bot.settings.owner)
 			if author == owner:
 				return
-			footer = "!dm " + author.id + " <msg>"
+			description = "dm " + author.id + " <msg>"
 			colour = discord.Colour.red()
-			description = "Sent by {}  ({})".format(author, author.id)
+			footer = "Sent by {}  ({})".format(author, author.id)
 			e = discord.Embed(colour=colour, description=message.content)
 			if author.avatar_url:
 				e.set_author(name=description, icon_url=author.avatar_url)

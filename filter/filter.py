@@ -42,15 +42,15 @@ class Filter:
 	
 	@commands.group(pass_context=True)
 	@checks.mod_or_permissions(manage_messages=True)
-	async def dednuker(self, ctx):
+	async def filternuker(self, ctx):
 		"""Finds all filtered messages"""
 		if ctx.invoked_subcommand is None:
 			await ctx.invoke(self.channel_dednuker, False, ctx.message.channel)
 	
-	@dednuker.command(name="channel", pass_context=True)
+	@filternuker.command(name="channel", pass_context=True)
 	@checks.mod_or_permissions(manage_messages=True)
-	async def channel_dednuker(self, ctx, delete: bool = False, channel: discord.Channel = None, user: discord.User = None):
-		"""Finds all `ded` messages in a channel."""
+	async def channel_filternuker(self, ctx, delete: bool = False, channel: discord.Channel = None, user: discord.User = None):
+		"""Finds all filtered messages in a channel."""
 		if channel is None:
 			channel = ctx.message.channel
 		status = await self.bot.send_message(ctx.message.channel, "Scanning channel {} Delete: `{}`".format(channel.mention, delete))
@@ -95,9 +95,10 @@ class Filter:
 			pass
 		return total
 	
-	@dednuker.command(name="server", pass_context=True)
+	@filternuker.command(name="server", pass_context=True)
 	@checks.admin_or_permissions(administrator=True)
-	async def server_dednuker(self, ctx, delete: bool = False, user: discord.User = None, server:discord.Server = None):
+	async def server_filternuker(self, ctx, delete: bool = False, user: discord.User = None, server:discord.Server = None):
+		"""Finds all filtered messages in a server."""
 		if server is None or server is "this":
 			server = ctx.message.server
 		total = {"scanned" : 0, "channels" : 0, "found" : 0, "ch" : 0, "deleted" : 0}
@@ -120,9 +121,10 @@ class Filter:
 		await self.bot.send_message(ctx.message.channel, msg)
 		return total
 	
-	@dednuker.command(name="global", pass_context=True)
+	@filternuker.command(name="global", pass_context=True)
 	@checks.is_owner()
-	async def global_dednuker(self, ctx, delete: str = False, user: discord.User = None):
+	async def global_filternuker(self, ctx, delete: str = False, user: discord.User = None):
+		"""Finds all filtered messages the bot can see"""
 		total = {"scanned" : 0, "channels" : 0, "servers" : 0, "found" : 0, "ch" : 0, "deleted" : 0}
 		for server in self.bot.servers:
 			total["servers"] += 1
