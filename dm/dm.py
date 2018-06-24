@@ -9,7 +9,7 @@ class Annoying:
 		self.bot = bot
 			
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_messages=True)
+	@checks.serverowner_or_permissions(administrator=True)
 	async def spam(self, ctx, amount: int, *, message: str):
 		"""Spams in same channel
 {0} For number
@@ -27,7 +27,7 @@ class Annoying:
 			await self.bot.send_message(ctx.message.channel, text.format(number, amount-number))
 	
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_messages=True)
+	@checks.serverowner_or_permissions(administrator=True)
 	async def dspam(self, ctx, amount: int, *, message: str):
 		"""Spams then deletes the messages. Useful for pinging people.
 {0} For number
@@ -46,7 +46,7 @@ class Annoying:
 			await self.bot.delete_message(message)
 			
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_messages=True)
+	@checks.is_owner()
 	async def dm(self, ctx, user: discord.User, *, message: str):
 		"""DMs a user"""
 		await self.bot.send_message(user, "{} ".format(message))
@@ -57,7 +57,7 @@ class Annoying:
 			pass
 			
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_messages=True)
+	@checks.is_owner()
 	async def dmspam(self, ctx, user: discord.User, amount: int, *, message: str):
 		"""Spams DMs to a user.
 {0} For number
@@ -74,7 +74,7 @@ class Annoying:
 			await self.bot.send_message(user, message.format(number, amount, amount-number))
 			
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_messages=True)
+	@checks.is_owner()
 	async def ddmspam(self, ctx, user: discord.User, amount: int, *, message: str):
 		"""Spams then delets DMs to a user.
 {0} For number
