@@ -18,7 +18,7 @@ class SQLlog:
         await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(time, amount, (channel, "all")[channel == None]))  
         ##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
             
-        """cursor.execute("SELECT * FROM `` WHERE ``")
+        cursor.execute("SELECT * FROM `` WHERE ``")
         data = cursor.fetchall()
         msg = "Done! Found {} messages: ```"
         m = 0
@@ -31,7 +31,6 @@ class SQLlog:
             msg += "{} {} > \"{}\"".format(time, sender.name, message)
         msg += "```"
         await self.bot.edit_message(status, msg.format(m))
-    """
         
     async def on_message(self, message):
         """Message listener"""
