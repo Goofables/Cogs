@@ -10,7 +10,31 @@ class SQLlog:
     """Loggs messages to MySQL server"""
     def __init__(self, bot):
         self.bot = bot
+
+        
+    @commands.command(pass_context=True)
+    @checks.serverowner_or_permissions(administrator=True)
+    async def log(self, ctx, time: str, amount: int = 10, channel: [discord.Channel, str] = "."):
+        if channel == ".":
+            channel = ctx.message.channel
+            
+        status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
+            
+        cursor.execute("SELECT * FROM `` WHERE ``")
+        data = cursor.fetchall()
+        msg = "Done! Found {} messages: ```"
+        m = 0
+        for entry in data:
+            if user != None and user != sender:
+                continue
+            if channel != None and channel != ch:
+                continue
+            m += 1
+            msg += "{} {} > \"{}\"".format(time, sender.name, message)
+        msg += "```"
+        await self.bot.edit_message(status, msg.format(m))
     
+        
     async def on_message(self, message):
         """Message listener"""
         try:
@@ -100,29 +124,6 @@ class SQLlog:
         msg = "Done!"
         msg += "\nScanned `{}` messages in `{}` channels in `{}` servers.".format(total["messages"], total["channels"], total["servers"])
         await self.bot.send_message(ctx.message.channel, msg)
-
-        
-    @commands.command(pass_context=True)
-    @checks.serverowner_or_permissions(administrator=True)
-    async def log(self, ctx, time: str, amount: int = 10, channel: [discord.Channel, str] = "."):
-        if channel == ".":
-            channel = ctx.message.channel
-        
-        status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
-        
-        cursor.execute("SELECT * FROM `` WHERE ``")
-        data = cursor.fetchall()
-        msg = "Done! Found {} messages: ```"
-        m = 0
-        for entry in data:
-            if user != None and user != sender:
-                continue
-            if channel != None and channel != ch:
-                continue
-            m += 1
-            msg += "{} {} > \"{}\"".format(time, sender.name, message)
-        msg += "```"
-        await self.bot.edit_message(status, msg.format(m))
 
         
 def fileCheck():
