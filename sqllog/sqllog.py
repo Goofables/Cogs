@@ -14,9 +14,11 @@ class SQLlog:
 
     @commands.command(pass_context=True)
     @checks.serverowner_or_permissions(administrator=True)
-    async def log(self, ctx, time: str, amount: int = 10, channel = "."):
-        if channel == ".":
+    async def log(self, ctx, time: str, amount: int = 10, channel: discord.Channel = None, chstr: str = "."):
+        if chstr == ".":
             channel = ctx.message.channel
+        if chstr == "*":
+            channel = None
         await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(time, amount, channel))  
         ##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
             
