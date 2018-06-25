@@ -12,11 +12,9 @@ class SQLlog:
     def __init__(self, bot):
         self.bot = bot
 
-        
     @commands.command(pass_context=True)
     @checks.serverowner_or_permissions(administrator=True)
     async def log(self, ctx, time: str, amount: int = 10, channel = "."):
-        if isinstance(channel, discord.Channel)
         if channel == ".":
             channel = ctx.message.channel
         await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(time, amount, channel))  
