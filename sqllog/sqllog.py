@@ -112,7 +112,7 @@ class SQLlog:
 		msg = "Done! Found {} messages: ```"
 		m = 0
 		for entry in data:
-			if user != None and user != sender):
+			if user != None and user != sender:
 				continue
 			if channel != None and channel != ch:
 				continue
