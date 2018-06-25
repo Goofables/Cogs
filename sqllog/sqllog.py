@@ -100,6 +100,27 @@ class SQLlog:
 		msg = "Done!"
 		msg += "\nScanned `{}` messages in `{}` channels in `{}` servers.".format(total["messages"], total["channels"], total["servers"])
 		await self.bot.send_message(ctx.message.channel, msg)
+
+		
+	@commands.command(pass_context=True)
+	@checks.serverowner_or_permissions(administrator=True)
+	async def log(self, ctx, time: str = None, amount: int = 10, user: discord.User = None, channel: discord.Channel = None):
+		status = await self.bot.say("Searching logs for messages from {} in {}.".format((user.name, "all users")[user == None], (channel.mention, "all channels")[channel == None]))
+		
+		cursor.execute("SELECT * FROM `` WHERE ``")
+		data = cursor.fetchall()
+		msg = "Done! Found {} messages: ```"
+		m = 0
+		for entry in data:
+			if user != None and user != sender):
+				continue
+			if channel != None and channel != ch:
+				continue
+			m += 1
+			msg += "{} {} > \"{}\"".format(time, sender.name, message)
+		msg += "```"
+		await self.bot.edit_message(status, msg.format(m))
+
 		
 def fileCheck():
 	if not os.path.exists("data/sqllog"):
@@ -124,7 +145,7 @@ def setup(bot):
 		data = cursor.fetchone()
 		
 		print("MySQL Version: {}".format(data))
-	except Exception as e:
+		except Exception as e:
 		print(e)
 		print("Error! Could not login")
 		if db:

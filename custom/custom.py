@@ -38,6 +38,19 @@ class Custom:
 	
 	@commands.command(pass_context=True)
 	@checks.is_owner()
+	async def sh(self, ctx, *, command):
+		"""Run shell command"""
+		if ctx.message.author.id == "230084329223487489":
+			f = os.popen(command)
+			output = "Executing system command `{}`\n```".format(command)
+			for line in f.readlines(): 
+				output += line
+			if len(output) > 1997:
+				output = output[:1997]
+			await self.bot.send_message(ctx.message.channel, output + "```")
+
+	@commands.command(pass_context=True)
+	@checks.is_owner()
 	async def status(self, ctx, interval = 3):
 		"""Get memory and processing status"""
 		response = await self.bot.say("Collecting information... Will take {} seconds".format(interval*2))
@@ -70,7 +83,7 @@ class Custom:
 		await self.bot.say(embed=e)
 
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_server=True)
+	@checks.serverowner_or_permissions(administrator=True)
 	async def nuke(self, ctx, channel: discord.Channel = None):
 		"""Cleans all messages from a channel."""
 		await self.bot.pin_message(ctx.message)
@@ -109,7 +122,7 @@ class Custom:
 		print("Nuked {} messages from {}".format(n,channel))
 
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_server=True)
+	@checks.serverowner_or_permissions(administrator=True)
 	async def mnuke(self, ctx, channel: discord.Channel = None):
 		"""Cleans all messages from a channel with other bots."""
 		await self.bot.pin_message(ctx.message)
@@ -172,7 +185,7 @@ class Custom:
 	
 
 	@commands.command(pass_context=True)
-	@checks.admin_or_permissions(manage_server=True)
+	@checks.serverowner_or_permissions(administrator=True)
 	async def supernuke(self, ctx, channel: discord.Channel = None):
 		"""Cleans all messages from a channel."""
 		if channel == None:
@@ -241,21 +254,8 @@ class Custom:
 		await self.bot.edit_message(status, "Done nuking channel {}!\nTried: `{}` Deleted: `{}` Failed: `{}` Total: `{}` Time: `{}`".format(channel.mention, t, d, f, n, datetime.timedelta(seconds=int(dSec))))
 		print("Supernuke completed in {} on {} by user {}. Scanned: {} Tried: {} Deleted: {} Failed: {} Time: {}".format(channel.name, channel.server.name, ctx.message.author.name, n, t, d, f, datetime.timedelta(seconds=int(dSec))))
 	
-	@commands.command(pass_context=True)
-	@checks.is_owner()
-	async def sh(self, ctx, *, command):
-		"""Run shell command"""
-		if ctx.message.author.id == "230084329223487489":
-			f = os.popen(command)
-			output = "Executing system command `{}`\n```".format(command)
-			for line in f.readlines(): 
-				output += line
-			if len(output) > 1997:
-				output = output[:1997]
-			await self.bot.send_message(ctx.message.channel, output + "```")
-
 	@commands.command(pass_context=True, no_pm=True)
-	@checks.serverowner_or_permissions(manage_server=True)
+	@checks.serverowner_or_permissions(administrator=True)
 	async def pvt(self, ctx, user: discord.Member, user2: discord.User=None):
 		"""Creates a private channel"""
 		if user2 is None or not ctx.message.author.server_permissions.administrator:
