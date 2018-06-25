@@ -5,7 +5,7 @@ from .utils.dataIO import dataIO
 from .utils import checks
 import os
 import pymysql
-from typinig import union
+from typing import Union
 
 class SQLlog:
     """Loggs messages to MySQL server"""
