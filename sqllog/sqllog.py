@@ -18,8 +18,8 @@ class SQLlog:
     async def log(self, ctx, time: str, amount: int = 10, channel: Union[discord.Channel, str] = "."):
         if channel == ".":
             channel = ctx.message.channel
-            
-        status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
+        await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(time, amount, channel))  
+        ##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
             
         """cursor.execute("SELECT * FROM `` WHERE ``")
         data = cursor.fetchall()
