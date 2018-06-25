@@ -145,7 +145,7 @@ def setup(bot):
 		data = cursor.fetchone()
 		
 		print("MySQL Version: {}".format(data))
-		except Exception as e:
+	except Exception as e:
 		print(e)
 		print("Error! Could not login")
 		if db:
