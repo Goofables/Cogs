@@ -105,6 +105,9 @@ class SQLlog:
 	@commands.command(pass_context=True)
 	@checks.serverowner_or_permissions(administrator=True)
 	async def log(self, ctx, time: str = None, amount: int = 10, user: discord.User = None, channel: discord.Channel = None):
+	    if channel == None:
+	        channel = ctx.message.channel
+	        
 		status = await self.bot.say("Searching logs for messages from {} in {}.".format((user.name, "all users")[user == None], (channel.mention, "all channels")[channel == None]))
 		
 		cursor.execute("SELECT * FROM `` WHERE ``")
