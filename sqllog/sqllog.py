@@ -15,7 +15,7 @@ class SQLlog:
         
     @commands.command(pass_context=True)
     @checks.serverowner_or_permissions(administrator=True)
-    async def log(self, ctx, time: str, amount: int = 10, channel: Union[discord.Channel, str] = "."):
+    async def log(self, ctx, time: str, amount: int = 10, channel = "."):
         if channel == ".":
             channel = ctx.message.channel
         await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(time, amount, channel))  
