@@ -21,8 +21,8 @@ class SQLlog:
         time = reg.match(time)
         def none0(val):
             return int((val, 0)[val == None])
-        await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(datetime.now() - timedelta(days=none0(time.group(2)), hours=none0(time.group(4)), minutes=none0(time.group(6)), seconds=none0(time.group(8))), amount, (channel, "all")[channel == None]))  
-        await self.bot.say("{} {} {} {}".format(time.group(2), time.group(4), time.group(6), time.group(8)))
+        datedif = datetime.now() - timedelta(days=none0(time.group(2)), hours=none0(time.group(4)), minutes=none0(time.group(6)), seconds=none0(time.group(8)))
+        await self.bot.say("Time: `{}d{}h{}m{}s` Amt: `{}` Ch: `{}`".format(time.group(2), time.group(4), time.group(6), time.group(8), amount, (channel, "all")[channel == None]))
         ##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
             
         cursor.execute("SELECT * FROM `` WHERE ``")
