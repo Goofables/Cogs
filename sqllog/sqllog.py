@@ -6,6 +6,8 @@ from .utils import checks
 import os
 import pymysql
 from typing import Union
+import re
+reg = re.compile("((\d+)d)?((\d+)h)?((\d+)m)?((\d+)s)?")
 
 class SQLlog:
     """Loggs messages to MySQL server"""
@@ -15,6 +17,7 @@ class SQLlog:
     @commands.command(pass_context=True)
     @checks.serverowner_or_permissions(administrator=True)
     async def log(self, ctx, time: str, amount: int = 10, channel: discord.Channel = None):
+        time = reg.match(time)
         await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(time, amount, (channel, "all")[channel == None]))  
         ##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
             
