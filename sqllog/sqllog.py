@@ -19,7 +19,7 @@ class SQLlog:
     @checks.serverowner_or_permissions(administrator=True)
     async def log(self, ctx, time: str, amount: int = 10, channel: discord.Channel = None):
         time = reg.match(time)
-        await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(datetime.now() - timedelta(re.group), amount, (channel, "all")[channel == None]))  
+        await self.bot.say("Time: `{}` Amt: `{}` Ch: `{}`".format(datetime.now() - timedelta(0), amount, (channel, "all")[channel == None]))  
         await self.bot.say("{} {} {} {}".format(time.group(1), time.group(3), time.group(5), time.group(7)))
         ##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
             
