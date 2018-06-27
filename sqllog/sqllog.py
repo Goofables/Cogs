@@ -122,13 +122,13 @@ class SQLlog:
 				try:
 					async for message in self.bot.logs_from(channel, limit=10000000, before=None):
 						if time.time() - timeI > 1:
-							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], datetime.timedelta(seconds=int(time.time() - timeI))))
+							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], timedelta(seconds=int(time.time() - timeI))))
 						total["messages"] += 1
 						await self.log_message(message)
 				except discord.Forbidden:
 					pass
 		msg = "Done!"
-		msg += "\nScanned `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], datetime.timedelta(seconds=int(time.time() - timeI)))
+		msg += "\nScanned `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], timedelta(seconds=int(time.time() - timeI)))
 		await self.bot.send_message(ctx.message.channel, msg)
 
 		
