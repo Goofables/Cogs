@@ -121,15 +121,14 @@ class SQLlog:
 				total["channels"] += 1
 				try:
 					async for message in self.bot.logs_from(channel, limit=10000000, before=None):
-						dSec = time.time() - timeS
 						if dSec > 1:
-							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], datetime.timedelta(seconds=int(dSec))))
+							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], datetime.timedelta(seconds=int(time.time() - timeI))))
 						total["messages"] += 1
 						await self.log_message(message)
 				except discord.Forbidden:
 					pass
 		msg = "Done!"
-		msg += "\nScanned `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], datetime.timedelta(seconds=int(dSec)))
+		msg += "\nScanned `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], datetime.timedelta(seconds=int(time.time() - timeI)))
 		await self.bot.send_message(ctx.message.channel, msg)
 
 		
