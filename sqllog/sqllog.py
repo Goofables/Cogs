@@ -3,12 +3,13 @@ import discord
 from discord.ext import commands
 from .utils.dataIO import dataIO
 from .utils import checks
-import os
-import pymysql
 from typing import Union
-import re
 from datetime import datetime,timedelta
-from time import time
+import pymysql
+import time
+import os
+import re
+
 reg = re.compile("((\d+)d)?((\d+)h)?((\d+)m)?((\d+)s)?")
 
 class SQLlog:
