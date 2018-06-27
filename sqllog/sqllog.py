@@ -30,7 +30,7 @@ class SQLlog:
 		if channel == None:
 			channel = ctx.message.server.channels
 		for ch in channel:
-			cursor.execute("SELECT * FROM `{}` WHERE `timestamp` >= '{}' ORDER BY `is` DESC LIMIT {}".format(ch.id, datedif, amount))
+			cursor.execute("SELECT * FROM `{}` WHERE `timestamp` >= '{}' ORDER BY `id` DESC LIMIT {}".format(ch.id, datedif, amount))
 		data = cursor.fetchall()
 		msg = "Done! Found {} messages: ```"
 		m = 0
