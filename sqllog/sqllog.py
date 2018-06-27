@@ -122,7 +122,7 @@ class SQLlog:
 				total["channels"] += 1
 				try:
 					async for message in self.bot.logs_from(channel, limit=10000000, before=None):
-						if int(time.time() - time2) > 0:
+						if time.time() - time2 > 1.5:
 							time2 = time.time()
 							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], timedelta(seconds=int(time.time() - timeI))))
 						total["messages"] += 1
