@@ -26,8 +26,11 @@ class SQLlog:
 		datedif = datetime.now() - timedelta(days=none0(time.group(2)), hours=none0(time.group(4)), minutes=none0(time.group(6)), seconds=none0(time.group(8)))
 		await self.bot.say("Time: `{}d{}h{}m{}s` Amt: `{}` Ch: `{}`".format(time.group(2), time.group(4), time.group(6), time.group(8), amount, (channel, "all")[channel == None]))
 		##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
-			
-		cursor.execute("SELECT * FROM `` WHERE ``")
+		
+		if channel == None:
+			channel = ctx.message.server.channels:
+		for ch in channel:
+			cursor.execute("SELECT * FROM `{}` WHERE `timestamp` >= '{}' ORDER BY `is` DESC LIMIT {}".format(ch.id, datedif, amount))
 		data = cursor.fetchall()
 		msg = "Done! Found {} messages: ```"
 		m = 0
