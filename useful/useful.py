@@ -18,9 +18,9 @@ class Useful:
 		await self.bot.send_message(ctx.message.channel, "`{} said:` {}".format(ctx.message.author.name, message))
 	
 	@commands.command(pass_context=True, no_pm=True)
-	async def ping(self, ctx):
+	async def hello(self, ctx):
 		"""Pong!"""
-		await self.bot.say("Pong!")
+		await self.bot.say("Hello world!")
 
 	@commands.command(pass_context=True, no_pm=True)
 	@checks.admin_or_permissions(manage_server=True)
