@@ -115,13 +115,15 @@ class SQLlog:
 		status = await self.bot.say("Logging all messages in all channels")
 		total = {"messages" : 0, "channels" : 0, "servers" : 0}
 		timeI = int(time.time())
+		time2 = time.time()
 		for server in self.bot.servers:
 			total["servers"] += 1
 			for channel in server.channels:
 				total["channels"] += 1
 				try:
 					async for message in self.bot.logs_from(channel, limit=10000000, before=None):
-						if int(time.time() - timeI)%2 == 0:
+						if int(time.time() - time2) > 0:
+							time2 = time.time()
 							await self.bot.edit_message(status, "Status: `{}` messages in `{}` channels in `{}` servers. Time: `{}`".format(total["messages"], total["channels"], total["servers"], timedelta(seconds=int(time.time() - timeI))))
 						total["messages"] += 1
 						await self.log_message(message)
