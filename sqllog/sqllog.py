@@ -28,7 +28,7 @@ class SQLlog:
 		##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
 		
 		if channel == None:
-			channel = ctx.message.server.channels:
+			channel = ctx.message.server.channels
 		for ch in channel:
 			cursor.execute("SELECT * FROM `{}` WHERE `timestamp` >= '{}' ORDER BY `is` DESC LIMIT {}".format(ch.id, datedif, amount))
 		data = cursor.fetchall()
