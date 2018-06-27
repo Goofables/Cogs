@@ -8,6 +8,7 @@ import pymysql
 from typing import Union
 import re
 from datetime import datetime,timedelta
+from time import time
 reg = re.compile("((\d+)d)?((\d+)h)?((\d+)m)?((\d+)s)?")
 
 class SQLlog:
