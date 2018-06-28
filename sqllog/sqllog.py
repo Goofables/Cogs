@@ -36,7 +36,7 @@ class SQLlog:
 		m = 0
 		for entry in data:
 			print (entry)
-			if user != None and user != sender:
+"""			if user != None and user != sender:
 				continue
 			if channel != None and channel != ch:
 				continue
@@ -44,7 +44,7 @@ class SQLlog:
 			msg += "{} {} > \"{}\"".format(time, sender.name, message)
 		msg += "```"
 		await self.bot.edit_message(status, msg.format(m))
-		
+"""		
 	async def on_message(self, message):
 		"""Message listener"""
 		try:
