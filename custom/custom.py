@@ -51,7 +51,7 @@ class Custom:
 		"""Clear user perms in a channel"""
 		if channel == None:
 			channel = ctx.message.channel
-		status = await self.bot.say("Deleting user {} from channel {}".format(user, channel))
+		status = await self.bot.say("Clearing user {} from channel {}".format(user, channel))
 		await self.bot.edit_channel_permissions(channel, user, None)
 		
 	
