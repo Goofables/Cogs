@@ -30,12 +30,21 @@ class SQLlog:
 		##await self.bot.say("Time: `{}d{}h{}m{}s` Amt: `{}` Ch: `{}`".format(time.group(2), time.group(4), time.group(6), time.group(8), amount, (channel, "all")[channel == None]))
 		##status = await self.bot.say("Searching logs for messages from all users in {}.".format((channel.mention, "all channels")[channel == "*"]))
 		
-		cursor.execute("SELECT * FROM `{}` WHERE `timestamp` >= '{}' ORDER BY `id` DESC LIMIT {}".format(channel.id, datedif, amount))
+		cursor.execute("SELECT * FROM `{}` WHERE `timestamp` >= '{}' ORDER BY `id` ASC LIMIT {}".format(channel.id, datedif, amount))
 		data = cursor.fetchall()
-		msg = "Done! Found {} messages: ```"
+		msg = "Done! Found {} messages: ```".format(len(data))
+		
 		m = 0
 		for entry in data:
-			print(entry)
+			user = discord.utils.get(self.bot.get_all_members(), id=entry[1])
+			m += 1
+			msg += "\n{} #{} @{} >> \"{}\"".format(entry[4].timestamp.strftime("%Y-%m-%d %H:%M:%S"), entry[0], user, entry[3])
+		msg += "```"
+		while len(msg) > len("Continued ``````".format(len(data))):
+			await self.bot.send_message(ctx.message.channel, msg[0:1997] + "```")
+			msg = "Continued ```{}".format(channel.mention, msg[1997:-3])
+		
+
 		"""	
 		if user != None and user != sender:
 				continue
