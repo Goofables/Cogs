@@ -41,9 +41,9 @@ class SQLlog:
 			msg += "\n{} #{} @{} >> \"{}\"".format(entry[4].timestamp.strftime("%Y-%m-%d %H:%M:%S"), entry[0], user, entry[3])
 		if len(msg) < 1998:
 			msg += "```"
-		while len(msg) > 0:
+		while len(msg) > 6:
 			await self.bot.send_message(ctx.message.channel, msg[0:2000] + "```")
-			msg = "```{}```".format(channel.mention, msg[1994:])
+			msg = "```{}```".format(msg[1994:])
 		
 
 		"""	
