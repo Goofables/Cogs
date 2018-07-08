@@ -42,7 +42,7 @@ class SQLlog:
 		if len(msg) < 1998:
 			msg += "```"
 		while len(msg) > 6:
-			await self.bot.send_message(ctx.message.channel, msg[0:2000] + "```")
+			await self.bot.send_message(ctx.message.channel, msg[0:2000] + ("```", "")[len(msg) < 1998])
 			msg = "```{}```".format(msg[1994:])
 		
 
