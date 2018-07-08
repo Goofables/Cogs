@@ -47,7 +47,7 @@ class Custom:
 	
 	@commands.command(pass_context=True)
 	@checks.is_owner()
-	async def deluser(self, ctx, user: discord.User, channel: str):
+	async def deluser2(self, ctx, user: discord.User, channel: str):
 		"""Delete user perms from a channel"""
 		channel = self.bot.get_channel(channel)
 		await ctx.invoke(self.deluser, user, channel)
