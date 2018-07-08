@@ -40,6 +40,7 @@ class Custom:
 	@checks.is_owner()
 	async def deluser(self, ctx, user: discord.User, channel: discord.Channel):
 		"""Run shell command"""
+		user = discord.utils.get(self.bot.get_all_members(), id=entry[1])
 		status = await self.bot.say("Deleting user {} from channel {}".format(user, channel))
 		await self.bot.edit_channel_permissions(channel, user, None)
 		
