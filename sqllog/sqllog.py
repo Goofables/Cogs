@@ -38,7 +38,7 @@ class SQLlog:
 		for entry in data:
 			user = discord.utils.get(self.bot.get_all_members(), id=entry[1])
 			m += 1
-			msg += "\n{} #{} @{} >> \"{}\"".format(entry[4].timestamp.strftime("%Y-%m-%d %H:%M:%S"), entry[0], user, entry[3])
+			msg += "\n{} #{} @{} >> \"{}\"".format(entry[4], entry[0], user, entry[3])
 		if len(msg) < 1998:
 			msg += "```"
 		while len(msg) > 6:
