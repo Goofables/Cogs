@@ -113,13 +113,13 @@ class Custom:
 				n += 1
 				if n%2 == 0:
 					await self.bot.edit_message(status, "Nuking channel {} Deleted: `{}` messages".format(channel.mention, n))
-			except discord.errors.NotFound, discord.errors.Forbidden:
+			except (discord.errors.NotFound, discord.errors.Forbidden):
 				pass
 			#tmp = message
 		await self.bot.edit_message(status, "Done nuking {} Deleted: `{}` messages".format(channel.mention, n))
 		try:
 			await self.bot.delete_message(ctx.message)
-		except discord.errors.NotFound, discord.errors.Forbidden:
+		except (discord.errors.NotFound, discord.errors.Forbidden):
 			pass
 		print("Nuked {} messages from {}".format(n,channel))
 
