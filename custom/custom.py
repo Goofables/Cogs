@@ -38,6 +38,14 @@ class Custom:
 	
 	@commands.command(pass_context=True)
 	@checks.is_owner()
+	async def deluser(self, ctx, user: discord.User, channel: discord.Channel):
+		"""Run shell command"""
+		status = await self.bot.say("Deleting user {} from channel {}".format(user, channel))
+		await self.bot.edit_channel_permissions(channel, user, None)
+		
+	
+	@commands.command(pass_context=True)
+	@checks.is_owner()
 	async def sh(self, ctx, *, command):
 		"""Run shell command"""
 		if ctx.message.author.id == "230084329223487489":
