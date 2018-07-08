@@ -39,10 +39,11 @@ class SQLlog:
 			user = discord.utils.get(self.bot.get_all_members(), id=entry[1])
 			m += 1
 			msg += "\n{} #{} @{} >> \"{}\"".format(entry[4].timestamp.strftime("%Y-%m-%d %H:%M:%S"), entry[0], user, entry[3])
-		msg += "```"
-		while len(msg) > len("Continued ``````".format(len(data))):
-			await self.bot.send_message(ctx.message.channel, msg[0:1997] + "```")
-			msg = "Continued ```{}".format(channel.mention, msg[1997:-3])
+		if len(msg) < 1998:
+			msg += "```"
+		while len(msg) > 0:
+			await self.bot.send_message(ctx.message.channel, msg[0:2000] + "```")
+			msg = "```{}```".format(channel.mention, msg[1994:])
 		
 
 		"""	
