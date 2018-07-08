@@ -38,17 +38,19 @@ class Custom:
 	
 	@commands.command(pass_context=True)
 	@checks.is_owner()
-	async def deluser(self, ctx, user: discord.User, channel: discord.Channel):
-		"""Run shell command"""
-		user = discord.utils.get(self.bot.get_all_members(), id=entry[1])
+	async def deluser(self, ctx, user: discord.User, channel: discord.Channel = None):
+		"""Delete user perms from a channel"""
+		if channel == None:
+			channel = ctx.message.channel
 		status = await self.bot.say("Deleting user {} from channel {}".format(user, channel))
 		await self.bot.delete_channel_permissions(channel, user)
 		
 	@commands.command(pass_context=True)
 	@checks.is_owner()
-	async def clearuser(self, ctx, user: discord.User, channel: discord.Channel):
-		"""Run shell command"""
-		user = discord.utils.get(self.bot.get_all_members(), id=entry[1])
+	async def clearuser(self, ctx, user: discord.User, channel: discord.Channel = None):
+		"""Clear user perms in a channel"""
+		if channel == None:
+			channel = ctx.message.channel
 		status = await self.bot.say("Deleting user {} from channel {}".format(user, channel))
 		await self.bot.edit_channel_permissions(channel, user, None)
 		
