@@ -107,7 +107,7 @@ class Filter:
 				continue
 			total["channels"] += 1
 			try:
-				ret = await ctx.invoke(self.channel_dednuker, delete, channel, user)
+				ret = await ctx.invoke(self.channel_filternuker, delete, channel, user)
 				total["scanned"] += ret["scanned"]
 				total["found"] += ret["found"]
 				total["deleted"] += ret["deleted"]
@@ -130,7 +130,7 @@ class Filter:
 			total["servers"] += 1
 			await self.bot.send_message(ctx.message.channel, "Server: `{}`".format(server.name))
 			try:
-				ret = await ctx.invoke(self.server_dednuker, delete, user, server)
+				ret = await ctx.invoke(self.server_filternuker, delete, user, server)
 				total["scanned"] += ret["scanned"]
 				total["found"] += ret["found"]
 				total["deleted"] += ret["deleted"]
