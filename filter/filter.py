@@ -65,7 +65,8 @@ class Filter:
 				
 				if user and not message.author == user:
 					continue
-				tmp = message
+				if message.type is MessageType.default:
+					tmp = message
 				if self.check(message):
 					total["found"] += 1
 					msg += "\n"+self.fmt(message)
