@@ -73,10 +73,10 @@ class Welcome:
 			await self.bot.say('Welcome disabled for {}'.format(channel.mention))
 			del self.channels[channel.id]
 		self.save_channels()
-		self.channels = fileIO("data/custom/channels.json", "load")
 
 	def save_channels(self):
 		fileIO('data/welcome/channels.json', 'save', self.channels)
+		self.channels = fileIO("data/welcome/channels.json", "load")
 		
 def checks():
 	if not os.path.exists("data/welcome"):
