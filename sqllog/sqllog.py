@@ -5,11 +5,14 @@ from .utils.dataIO import dataIO
 from .utils import checks
 from typing import Union
 from datetime import datetime,timedelta
-import pymysql
 import time
 import os
 import re
-
+try:
+	import pymysql
+except:
+	print ("Error! pymysql not installed")
+	quit()
 reg = re.compile("((\d+)d)?((\d+)h)?((\d+)m)?((\d+)s)?")
 
 class SQLlog:
