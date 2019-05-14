@@ -1,0 +1,46 @@
+
+
+Sqllog:
+    Readback:
+        !log|getlog <#messages | timeS> [user] [channel]
+        ```
+            <time> <user>: <message>
+        ```
+    
+    Table:
+        + <server deleted> <log hidden> <edited>
+    
+    Logall:
+        [channel]
+        
+    Dm channels
+
+Useful:
+    !pin <message>
+    !find <channel|message|user>
+    !show|hide <user|role>
+    !editperm <user|role> <global=False>
+
+
+All:
+    Fix perms
+    per server
+    make bot 'public'
+    onmessage to catch ping prefix for command
+    *****:better sh reboot
+    
+Selfbot:
+    Log ALL
+
+
+
+
+
+
+
+
+
+
+
+
+
