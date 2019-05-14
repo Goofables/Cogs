@@ -8,11 +8,12 @@ from datetime import datetime,timedelta
 import time
 import os
 import re
+
 try:
 	import pymysql
 except:
 	print ("Error! pymysql not installed")
-	quit()
+	raise SystemExit
 reg = re.compile("((\d+)d)?((\d+)h)?((\d+)m)?((\d+)s)?")
 
 class SQLlog:
